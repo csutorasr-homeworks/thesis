@@ -2,6 +2,8 @@
 
 [Architektúrális leírás](architecture.uxf) (Megnyitható UMLet-tel.)
 
+[Architektúrális leírás kép](architecture.svg)
+
 ## Specifikáció
 
 A cél egy olyan SAAS alkalmazás készítése, ami cégek számára karbantartható módon tudja kezelni a vállalatok autóflottáját.
@@ -38,11 +40,23 @@ A cégvezetők számára a havi kerettúllépések, és azoknak a számontartás
 1. Szervízalkalmak létrehozása
 1. Szervízalkalmak törlése
 
+## User story-k
+
+1. A felhasználó regisztrál, majd bejelentkezik. Létrehoz egy flottát, majd autókat is vesz fel bele. Beállítja az autók szervíz feltételeit.
+1. Belép a felhasználó és ellenőrzi, kell-e szervízelni az autókat.
+1. Tankolt üzemanyagot a felhasználó, majd rögzíti a rendszerbe. Ehhez belép és felveszi az autójához az adatot.
+1. A flottakezelő pénzt kap az autó használójától. Ezt felviszi a rendszerbe, majd elfogadja az összeget.
+1. A flotta új politikája miatt nincs szükség fél éves szervízre. A flottakezelő törli a szabályt.
+1. Egy autót nem használ senki hosszútávon. A flottakezelő deaktiválja az autót.
+1. Hónap végén a flotta kiadásait ellenőrzik. Az autók összesítőjét ellenőrzi a flottakezelő, majd elfogadja őket.
+1. Szervízelni vitték az autót. Felvesz a flottakezelő egy szervízalkalmat a rendszerbe.
+
 ## Nem funkcionális követelmények
 
 1. Az alkalmazás használható legyen az örökzöld webböngészőkből.
 1. A folyamatok a lehető legegyszerűbbek legyenek.
 1. Az üzleti logikai szabályokat rendszerezve szervezzük.
+1. Authorizáció
 1. Mobilnézet támogatása.
 1. Authentikáció bővíthetősége.
 1. Robosztus adatbázis kezelés.
@@ -144,17 +158,30 @@ Az alkalmazás a frontenddel fog kommunikálni. Ehhez szükségesek a kommuniká
 
 ### GET /flottak
 
-Minden flottát visszaad.
+Minden flottát visszaad, amihez a felhasználó hozzáfér.
+
+Response:
+
+- id
+- név
 
 ### POST /flottak
 
 Új flottát hoz létre.
 
+Request:
+
 - név
+
+Response:
+
+- id
 
 ### PUT /flottak/{id}
 
 Flotta módosítása.
+
+Request:
 
 - név
 
@@ -166,32 +193,51 @@ Flotta törlése.
 
 Kezelő felvétele a flottába.
 
+Request:
+
 - kezelőazonosító
 
-### DELETE /flottak/{id}/kezelok/{id}
+### DELETE /flottak/{id}/kezelok/{kezelőid}
 
 Kezelő törlése a flottából. Ha ő lenne az utolsó, akkor nem lehet.
-
-- kezelőazonosító
 
 ### GET /flottak/{id}/autok
 
 Flotta autóinak listázása.
 
+Request:
+
 - rendszám
+- szervizKell
 - oldalszám
 - oldalhossz
+
+Response:
+
+- autók
+  - id
+  - rendszám
+  - aktív
+  - kell-e szervíz
 
 ### POST /flottak/{id}/autok
 
 Autót hoz létre.
 
+Request:
+
 - rendszám
 - havi keret
+
+Response:
+
+- id
 
 ### PUT /flottak/{id}/autok/{id}
 
 Autót módosít.
+
+Request:
 
 - rendszám
 - havi keret
@@ -200,16 +246,25 @@ Autót módosít.
 
 Autó törölt jelzése.
 
-- oldalszám
-- oldalhossz
-
 ### GET /flottak/{id}/autok/{id}/bejegyzesek
 
 Bejegyzéseit listázza egy autónak.
 
+Response:
+
+- bejegyzésk:
+  - dátum
+  - km óra állása
+  - időpont
+  - helyszín
+  - mennyiség
+  - összeg
+
 ### POST /flottak/{id}/autok/{id}/bejegyzesek
 
-Bejegyzést hoz létre.
+Bejegyzést hoz létre. Csak olyan hónapra lehet, aminek még nincs havi összesítője.
+
+Request:
 
 - km óra állása
 - időpont
@@ -217,54 +272,90 @@ Bejegyzést hoz létre.
 - mennyiség
 - összeg
 
+Response:
+
+- id
+
 ### DELETE /flottak/{id}/autok/{id}/bejegyzesek/{id}
 
-Bejegyzés törölt jelzése.
+Bejegyzés törölt jelzése. Csak akkor lehet, ha még nincs havi összesítője jóváhagyva.
 
 ### GET /flottak/{id}/autok/{id}/osszegzesek
 
 Autónak a havi összesítőit kéri le.
 
+Request:
+
 - oldalszám
 - oldalhossz
 
+Response:
+
+- összegzések:
+  - havi összes összeg
+  - havi keret
+  - megtett km-ek
+  - jóváhagyva
+  - befizetések:
+    - összeg
+    - befizetve
+
 ### POST /flottak/{id}/autok/{id}/osszegzesek/{id}/jovahagy
 
-Jóváhagyja a havi összesítőt.
+Jóváhagyja a havi összesítőt. Csak akkor lehet, ha még nem volt jóváhagyva vagy elutasítva.
 
 ### POST /flottak/{id}/autok/{id}/osszegzesek/{id}/elutasit
 
-Elutasítja a havi összesítőt.
+Elutasítja a havi összesítőt. Csak akkor lehet, ha még nem volt jóváhagyva vagy elutasítva.
 
 ### GET /flottak/{id}/autok/{id}/befizetesek
 
-Autónak a befizetéseit kéri le
+Autónak a befizetéseit kéri le.
 
-- befizetett
+- befizetések:
+  - összeg
+  - befizetve
 
 ### POST /flottak/{id}/autok/{id}/befizetesek/{id}/jovahagy
 
-Jóváhagyja a befizetés teljesülését.
-
-### GET /flottak/{id}/autok?szervizKell=1
-
-Lekéri azokat az autókat, amiknek szervízre van szüksége.
+Jóváhagyja a befizetés teljesülését. Csak akkor lehet, ha még nem volt jóváhagyva.
 
 ### GET /flottak/{id}/autok/{id}/szervizfeltetelek
 
 Az autó szervízfeltételeit mutatja.
 
+Response:
+
+- Feltételek:
+  - id
+  - típus
+  - típusnak megfelelő adatok
+
 ### POST /flottak/{id}/autok/{id}/szervizfeltetelek/ido
 
 Új idő alapú szervízfeltételt hoz létre.
 
+Request:
+
 - időintervallum
+
+Response:
+
+- type
+- id
 
 ### POST /flottak/{id}/autok/{id}/szervizfeltetelek/km
 
 Új km alapú szervízfeltételt hoz létre.
 
+Request:
+
 - km
+
+Response:
+
+- type
+- id
 
 ### DELETE /flottak/{id}/autok/{id}/szervizfeltetelek/{id}
 
@@ -274,16 +365,46 @@ Töröl egy szervízfeltételt.
 
 Lekéri egy autó szervízelési időpontjait.
 
+Request:
+
 - oldalszám
 - oldalhossz
+
+Response:
+
+- szervízidőpontok:
+  - id
+  - km óra állás
+  - időpont
+  - szervíz típusa
 
 ### POST /flottak/{id}/autok/{id}/szervizek
 
 Létrehoz egy szervízalkalmat.
 
+Request:
+
+- km óra állás
+- időpont
+- szervíz típusa
+
+Response:
+
+- id
+
 ### DELETE /flottak/{id}/autok/{id}/szervizek/{id}
 
 Töröltre állít egy szervízalkalmat.
+
+## Service interfacek
+
+A service réteget CQRS segítségével tervezem megvalósítani. Minden service hívás a Dto-k alapján készült ViewModelleket kapják meg, valamint a lekérdező felhasználó azonosítóját. Minden CQRS híváshoz tartozik egy függvény a BLL rétegben, amit a keretrendszer fog meghívni automatikusan.
+
+A servicek fogják leképezni az információkat a viewmodellek között az adatbázis műveletekre. Feladatuk a hozzáférés szabályozása, valamint az üzleti szabályok betartatása. Ezeket fentebb a végpontoknál részleteztem.
+
+A servicek a model rétegbe létrező aggregate rootokat fogják használni. Ez jól látszik az [Adatbázis struktúrán](db.svg)
+
+A /flotta/id kezdetű végpontokat csak akkor hívhatja, ha flottakezelője az adott flottának.
 
 ## Felület tervek
 
