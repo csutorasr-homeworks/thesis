@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import { Nav, Navbar } from 'react-bootstrap';
 
+import NotFound from './misc/NotFound';
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import logo from './logo.svg';
@@ -37,7 +38,9 @@ function App() {
         <Route exact path="/">
           Home
         </Route>
-        <Route>Not Found</Route>
+        <Route>
+          <NotFound />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
