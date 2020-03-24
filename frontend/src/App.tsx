@@ -1,6 +1,7 @@
 import './App.css';
 
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { Nav, Navbar } from 'react-bootstrap';
 
 import React from 'react';
 import { hot } from 'react-hot-loader';
@@ -9,32 +10,35 @@ import logo from './logo.svg';
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <Link to="/">home</Link>
-          <Link to="/test">test</Link>
-          <Switch>
-            <Route exact path="/">
-              <p>homepage</p>
-            </Route>
-            <Route path="/test">
-              <p>test</p>
-            </Route>
-          </Switch>
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Navbar bg="dark" expand="lg" variant="dark">
+        <Navbar.Brand as={Link} to="/">
+          <img
+            alt=""
+            src={logo}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />
+          React
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link as={Link} to="/">
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/test">
+              Test
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Switch>
+        <Route exact path="/">
+          Home
+        </Route>
+        <Route>Not Found</Route>
+      </Switch>
     </BrowserRouter>
   );
 }
