@@ -1,6 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 
 import { AuthContext } from './AuthModule';
+import AuthIsLoggedIn from './AuthIsLoggedIn';
 import { Button } from 'react-bootstrap';
 
 export default function AuthToggle() {
@@ -10,7 +11,9 @@ export default function AuthToggle() {
   }, [context]);
   return (
     <Button variant="primary" onClick={toggleSignedIn}>
-      {context.state.isLoggedIn ? 'Kijelentkezés' : 'Bejelentkezés'}
+      <AuthIsLoggedIn>
+        {(isLoggedIn) => (isLoggedIn ? 'Kijelentkezés' : 'Bejelentkezés')}
+      </AuthIsLoggedIn>
     </Button>
   );
 }
