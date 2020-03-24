@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
 import React from 'react';
+import { hot } from 'react-hot-loader';
 import logo from './logo.svg';
 
 function App() {
@@ -38,4 +39,4 @@ function App() {
   );
 }
 
-export default App;
+export default hot(module)(App);
