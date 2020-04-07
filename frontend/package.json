@@ -30,6 +30,7 @@
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
   },
+  "proxy": "https://localhost:44320",
   "eslintConfig": {
     "extends": "react-app"
   },

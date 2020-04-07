@@ -1,4 +1,4 @@
-import NotFound from './NotFound';
+import NotFound from '.';
 import React from 'react';
 import { render } from '@testing-library/react';
 

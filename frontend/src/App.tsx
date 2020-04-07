@@ -5,7 +5,8 @@ import { Nav, Navbar } from 'react-bootstrap';
 
 import AuthModule from './auth/AuthModule';
 import AuthToggle from './auth/AuthToggle';
-import NotFound from './misc/NotFound';
+import Home from './Pages/Home';
+import NotFound from './Pages/NotFound';
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import logo from './logo.svg';
@@ -41,6 +42,9 @@ function App() {
           </Navbar.Collapse>
         </Navbar>
         <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
           <Route exact path="/">
             Home
           </Route>
