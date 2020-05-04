@@ -1,8 +1,8 @@
 import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
-import React, { useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import ErrorComponent from '../../Components/Error';
+import React from 'react';
 import useAxios from 'axios-hooks';
 
 export default function EditFleet() {
@@ -14,8 +14,7 @@ export default function EditFleet() {
   const { handleSubmit, control } = useForm<{
     name: string;
   }>();
-  const [editSuccessful, setEditSuccessful] = useState(false);
-  const [{ loading: saveLoading }, send] = useAxios<string>(
+  const [{ loading: saveLoading, response: edited }, send] = useAxios<string>(
     {
       method: 'PUT',
       url: `/fleets/${fleetId}`,
@@ -24,15 +23,14 @@ export default function EditFleet() {
       manual: true,
     }
   );
-  const onSubmit = async (data: { name: string }) => {
+  const onSubmit = (data: { name: string }) => {
     if (!saveLoading) {
-      await send({
+      send({
         data,
       });
-      setEditSuccessful(true);
     }
   };
-  if (editSuccessful) {
+  if (edited) {
     return <Redirect to={`/fleets/${fleetId}`} />;
   }
 
@@ -40,7 +38,7 @@ export default function EditFleet() {
     <ErrorComponent loading={loading} error={error} refetch={refetch}>
       {() => (
         <Form noValidate validated={true} onSubmit={handleSubmit(onSubmit)}>
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="formName">
             <Form.Label>Fleet name</Form.Label>
             <Controller
               as={

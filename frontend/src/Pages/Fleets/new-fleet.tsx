@@ -30,7 +30,7 @@ export default function NewFleet() {
 
   return (
     <Form noValidate validated={true} onSubmit={handleSubmit(onSubmit)}>
-      <Form.Group controlId="formBasicEmail">
+      <Form.Group controlId="formName">
         <Form.Label>Fleet name</Form.Label>
         <Controller
           as={<Form.Control name="name" placeholder="Enter name" required />}
