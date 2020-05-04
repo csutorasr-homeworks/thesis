@@ -11,17 +11,16 @@ export default function FleetList() {
     return <Redirect to={`/fleets/${fleets[0].id}`} />;
   }
   return (
-    <>
-      <ErrorComponent loading={loading} error={error} refetch={refetch} />
-      <ul>
-        {!loading &&
-          !error &&
-          fleets.map((x) => (
+    <ErrorComponent loading={loading} error={error} refetch={refetch}>
+      {() => (
+        <ul>
+          {fleets.map((x) => (
             <li key={x.id}>
               <Link to={`/fleets/${x.id}`}>{x.name}</Link>
             </li>
           ))}
-      </ul>
-    </>
+        </ul>
+      )}
+    </ErrorComponent>
   );
 }

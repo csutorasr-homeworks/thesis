@@ -10,10 +10,13 @@ export default function FleetSingle() {
     name: string;
   }>(`/fleets/${fleetId}`);
   return (
-    <>
-      <ErrorComponent loading={loading} error={error} refetch={refetch} />
-      <h1>{fleet?.name}</h1>
-      <Link to={`/fleets/${fleetId}/edit`}>Edit</Link>
-    </>
+    <ErrorComponent loading={loading} error={error} refetch={refetch}>
+      {() => (
+        <>
+          <h1>{fleet?.name}</h1>
+          <Link to={`/fleets/${fleetId}/edit`}>Edit</Link>
+        </>
+      )}
+    </ErrorComponent>
   );
 }
