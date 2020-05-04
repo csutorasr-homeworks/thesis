@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Flottapp.WebApi;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,10 @@ namespace Flottapp
             services.AddControllers();
             services.AddInfrastructue();
             services.AddMongoDb(Configuration);
+            services.AddSwaggerDocument(options =>
+            {
+                options.SchemaNameGenerator = new SchemaNameGenerator();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +46,9 @@ namespace Flottapp
             }
 
             app.UseHttpsRedirection();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseRouting();
 
