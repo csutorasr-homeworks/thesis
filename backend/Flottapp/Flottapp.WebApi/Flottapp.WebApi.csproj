@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Flottapp.Application\Flottapp.Application.csproj" />
+    <ProjectReference Include="..\Flottapp.Infrastructure.MongoDb\Flottapp.Infrastructure.MongoDb.csproj" />
   </ItemGroup>
 
 

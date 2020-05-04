@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flottapp.WebApi", "Flottapp.WebApi\Flottapp.WebApi.csproj", "{F237CB84-9C3D-4698-AC67-10B1A87C3944}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flottapp.Domain", "Flottapp.Domain\Flottapp.Domain.csproj", "{9679AB43-11B6-40BB-B1E3-C4EB9EE18E29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flottapp.Domain", "Flottapp.Domain\Flottapp.Domain.csproj", "{9679AB43-11B6-40BB-B1E3-C4EB9EE18E29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flottapp.Application", "Flottapp.Application\Flottapp.Application.csproj", "{4EE72990-2EAB-42E2-B380-A762C97D15C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flottapp.Application", "Flottapp.Application\Flottapp.Application.csproj", "{4EE72990-2EAB-42E2-B380-A762C97D15C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flottapp.Infrastructure.MongoDb", "Flottapp.Infrastructure.MongoDb\Flottapp.Infrastructure.MongoDb.csproj", "{D8D5BF67-286C-4677-B24F-10C20B6231C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{4EE72990-2EAB-42E2-B380-A762C97D15C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EE72990-2EAB-42E2-B380-A762C97D15C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EE72990-2EAB-42E2-B380-A762C97D15C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8D5BF67-286C-4677-B24F-10C20B6231C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8D5BF67-286C-4677-B24F-10C20B6231C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8D5BF67-286C-4677-B24F-10C20B6231C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8D5BF67-286C-4677-B24F-10C20B6231C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -11,6 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddInfrastructue(this IServiceCollection services)
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(typeof(DependencyInjection));
             return services;
         }
     }
