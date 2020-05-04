@@ -1,34 +1,33 @@
 import { Button, ButtonGroup, Row } from 'react-bootstrap';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
-import CarsList from './Cars/cars-list';
-import ErrorComponent from '../../Components/Error';
+import { CarRowVm } from './cars-list';
+import ErrorComponent from '../../../Components/Error';
 import React from 'react';
 import useAxios from 'axios-hooks';
 
-export default function FleetSingle() {
-  const { fleetId } = useParams();
+export default function CarSingle() {
+  const { fleetId, carId } = useParams();
   const history = useHistory();
-  const [{ data: fleet, loading, error }, refetch] = useAxios<{
-    id: string;
-    name: string;
-  }>(`/fleets/${fleetId}`);
+  const [{ data: car, loading, error }, refetch] = useAxios<CarRowVm>(
+    `/fleets/${fleetId}/cars/${carId}`
+  );
   const [
     { loading: deleting, error: deleteError, response: deleted },
-    deleteFleet,
+    deactivateCar,
   ] = useAxios<{
     id: string;
     name: string;
   }>(
     {
       method: 'DELETE',
-      url: `/fleets/${fleetId}`,
+      url: `/fleets/${fleetId}/cars/${carId}`,
     },
     {
       manual: true,
     }
   );
   if (deleted) {
-    return <Redirect to="/" />;
+    return <Redirect to={`/fleets/${fleetId}`} />;
   }
   return (
     <ErrorComponent
@@ -39,17 +38,20 @@ export default function FleetSingle() {
       {() => (
         <>
           <Row>
-            <h1 className="col">{fleet?.name}</h1>
+            <h1 className="col">{car?.licensePlateNumber}</h1>
             <ButtonGroup style={{ alignSelf: 'center' }}>
-              <Button onClick={() => history.push(`/fleets/${fleetId}/edit`)}>
+              <Button
+                onClick={() =>
+                  history.push(`/fleets/${fleetId}/cars/${carId}/edit`)
+                }
+              >
                 Edit
               </Button>
-              <Button onClick={() => deleteFleet()} variant="danger">
-                Delete
+              <Button onClick={() => deactivateCar()} variant="danger">
+                Deactivate
               </Button>
             </ButtonGroup>
           </Row>
-          <CarsList />
         </>
       )}
     </ErrorComponent>

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Flottapp.Application.Providers;
+using Flottapp.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddAutoMapper(typeof(DependencyInjection));
+            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             return services;
         }
     }

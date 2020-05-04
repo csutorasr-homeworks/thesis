@@ -1,7 +1,7 @@
 ﻿using Flottapp.Application.Fleet;
 using Flottapp.Domain;
 using Flottapp.Infrastructure.MongoDb;
-using Flottapp.Infrastructure.MongoDb.Car;
+using Flottapp.Infrastructure.MongoDb.Fleet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson.Serialization;
@@ -19,6 +19,11 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 cm.AutoMap();
                 cm.MapIdMember(x => x.Id).SetIdGenerator(StringObjectIdGenerator.Instance);
+            });
+            BsonClassMap.RegisterClassMap<Car>(cm =>
+            {
+                cm.AutoMap();
+                cm.MapIdMember(x => x.Id).SetIdGenerator(StringObjectIdGenerator.Instance).SetIgnoreIfDefault(true);
             });
             return services;
         }

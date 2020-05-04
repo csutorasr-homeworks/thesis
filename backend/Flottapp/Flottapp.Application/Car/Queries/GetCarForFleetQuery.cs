@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Flottapp.Application.Fleet;
-using Flottapp.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,13 +7,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Flottapp.Infrastucture.Commands
+namespace Flottapp.Infrastucture.Queries
 {
-    public class DeactivateCarForFleetCommand : IRequest
+    public class GetCarForFleetQuery : IRequest<CarRowVm>
     {
         public string FleetId { get; set; }
         public string CarId { get; set; }
-        public class Handler : IRequestHandler<DeactivateCarForFleetCommand>
+        public class Handler : IRequestHandler<GetCarForFleetQuery, CarRowVm>
         {
             private readonly IFleetStore fleetStore;
             private readonly IMapper mapper;
@@ -24,10 +23,10 @@ namespace Flottapp.Infrastucture.Commands
                 this.fleetStore = fleetStore;
                 this.mapper = mapper;
             }
-            public async Task<Unit> Handle(DeactivateCarForFleetCommand request, CancellationToken cancellationToken)
+            public async Task<CarRowVm> Handle(GetCarForFleetQuery request, CancellationToken cancellationToken)
             {
-                await fleetStore.DeactivateCarForFleet(request.FleetId, request.CarId, cancellationToken);
-                return Unit.Value;
+                var data = await fleetStore.GetCarForFleet(request.FleetId, request.CarId, cancellationToken);
+                return mapper.Map<CarRowVm>(data);
             }
         }
     }

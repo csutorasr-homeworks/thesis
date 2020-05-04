@@ -9,7 +9,7 @@ namespace Flottapp.Infrastucture.Commands
     {
         public string FleetId { get; set; }
         public string CarId { get; set; }
-        public Money LimitPerMonth { get; set; }
+        public MoneyVm LimitPerMonth { get; set; }
         public string LicensePlateNumber { get; set; }
     }
 }

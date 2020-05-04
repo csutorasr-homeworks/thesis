@@ -13,6 +13,6 @@ namespace Flottapp.Infrastucture.Commands
         public decimal Mileage { get; set; }
         public Location Location { get; set; }
         public decimal RefuelQuantity { get; set; }
-        public Money Price { get; set; }
+        public MoneyVm Price { get; set; }
     }
 }

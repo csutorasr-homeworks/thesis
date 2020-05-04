@@ -55,5 +55,25 @@ namespace Flottapp.Controllers
         {
             await mediator.Send(new RemoveUserFromFleetCommand { Id = id, UserId = userId }, cancellationToken);
         }
+        [HttpGet("{id:length(24)}/cars")]
+        public async Task<IEnumerable<CarRowVm>> GetCars(string id, CancellationToken cancellationToken)
+        {
+            return await mediator.Send(new ListCarsForFleetQuery { FleetId = id }, cancellationToken);
+        }
+        [HttpGet("{id:length(24)}/cars/{carId:length(24)}")]
+        public async Task<CarRowVm> GetCar(string id, string carId, CancellationToken cancellationToken)
+        {
+            return await mediator.Send(new GetCarForFleetQuery { FleetId = id, CarId = carId }, cancellationToken);
+        }
+        [HttpPost("{id:length(24)}/cars")]
+        public async Task<string> PostCar(string id, CreateCarForFleetCommand.Dto dto, CancellationToken cancellationToken)
+        {
+            return await mediator.Send(new CreateCarForFleetCommand { FleetId = id, Data = dto }, cancellationToken);
+        }
+        [HttpDelete("{id:length(24)}/cars/{carId:length(24)}")]
+        public async Task DeactivateCar(string id, string carId, CancellationToken cancellationToken)
+        {
+            await mediator.Send(new DeactivateCarForFleetCommand { FleetId = id, CarId = carId }, cancellationToken);
+        }
     }
 }
