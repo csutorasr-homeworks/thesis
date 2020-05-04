@@ -21,9 +21,14 @@ namespace Flottapp.Controllers
             this.mediator = mediator;
         }
         [HttpGet]
-        public async Task<IEnumerable<FleetRowVm>> Get(CancellationToken cancellationToken)
+        public async Task<IEnumerable<FleetRowVm>> GetList(CancellationToken cancellationToken)
         {
             return await mediator.Send(new ListFleetsQuery(), cancellationToken);
+        }
+        [HttpGet("{id:length(24)}")]
+        public async Task<FleetRowVm> Get(string id, CancellationToken cancellationToken)
+        {
+            return await mediator.Send(new GetFleetQuery { Id = id }, cancellationToken);
         }
         [HttpPost]
         public async Task<string> Post(CreateFleetCommand command, CancellationToken cancellationToken)

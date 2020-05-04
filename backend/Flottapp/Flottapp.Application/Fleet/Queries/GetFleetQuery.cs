@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Flottapp.Infrastucture.Queries
 {
-    public class ListFleetsQuery : IRequest<IEnumerable<FleetRowVm>>
+    public class GetFleetQuery : IRequest<FleetRowVm>
     {
-        public class Handler : IRequestHandler<ListFleetsQuery, IEnumerable<FleetRowVm>>
+        public string Id { get; set; }
+        public class Handler : IRequestHandler<GetFleetQuery, FleetRowVm>
         {
             private readonly IFleetStore fleetStore;
             private readonly IMapper mapper;
@@ -20,10 +21,10 @@ namespace Flottapp.Infrastucture.Queries
                 this.fleetStore = fleetStore;
                 this.mapper = mapper;
             }
-            public async Task<IEnumerable<FleetRowVm>> Handle(ListFleetsQuery request, CancellationToken cancellationToken)
+            public async Task<FleetRowVm> Handle(GetFleetQuery request, CancellationToken cancellationToken)
             {
-                var data = await fleetStore.GetFleets(cancellationToken);
-                return data.Select(x => mapper.Map<FleetRowVm>(x));
+                var data = await fleetStore.GetFleet(request.Id, cancellationToken);
+                return mapper.Map<FleetRowVm>(data);
             }
         }
     }
