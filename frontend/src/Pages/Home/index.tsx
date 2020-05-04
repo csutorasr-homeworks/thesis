@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import ErrorComponent from '../../Components/Error';
+import React from 'react';
+import useAxios from 'axios-hooks';
 
 export default function Home() {
-  const [fleets, setFleets] = useState<{ id: string; name: string }[]>([]);
-  useEffect(() => {
-    (async () => {
-      const response = await fetch('/api/fleets');
-      setFleets(await response.json());
-    })();
-  }, []);
+  const [{ data: fleets, loading, error }, refetch] = useAxios<
+    { id: string; name: string }[]
+  >('/fleets');
+  console.log(JSON.stringify(error));
   return (
     <div>
       Home
-      <ul>
-        {fleets.map((x) => (
-          <li key={x.id}>{x.name}</li>
-        ))}
-      </ul>
+      <ErrorComponent loading={loading} error={error} refetch={refetch}>
+        <ul>
+          {!loading &&
+            !error &&
+            fleets?.map((x) => <li key={x.id}>{x.name}</li>)}
+        </ul>
+      </ErrorComponent>
     </div>
   );
 }
