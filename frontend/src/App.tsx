@@ -31,7 +31,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link as={Link} to="/">
-                Home
+                My fleet
               </Nav.Link>
               <Nav.Link as={Link} to="/fleets/new">
                 New fleet
