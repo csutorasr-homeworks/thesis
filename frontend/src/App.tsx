@@ -5,6 +5,7 @@ import { Nav, Navbar } from 'react-bootstrap';
 
 import AuthModule from './auth/AuthModule';
 import AuthToggle from './auth/AuthToggle';
+import Fleets from './Pages/Fleets';
 import Home from './Pages/Home';
 import NotFound from './Pages/NotFound';
 import React from 'react';
@@ -32,8 +33,8 @@ function App() {
               <Nav.Link as={Link} to="/">
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/test">
-                Test
+              <Nav.Link as={Link} to="/fleets/new">
+                New fleet
               </Nav.Link>
             </Nav>
             <Nav>
@@ -45,8 +46,8 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route exact path="/">
-            Home
+          <Route path="/fleets">
+            <Fleets />
           </Route>
           <Route>
             <NotFound />
