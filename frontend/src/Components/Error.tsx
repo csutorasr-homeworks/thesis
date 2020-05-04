@@ -1,16 +1,14 @@
 import { Alert, Button } from 'react-bootstrap';
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 export default function ErrorComponent({
   loading,
   error,
   refetch,
-  children,
 }: {
   loading: boolean;
   error: any;
   refetch?: () => void;
-  children: ReactNode;
 }) {
   return (
     !loading &&

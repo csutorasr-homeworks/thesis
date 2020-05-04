@@ -6,17 +6,13 @@ export default function Home() {
   const [{ data: fleets, loading, error }, refetch] = useAxios<
     { id: string; name: string }[]
   >('/fleets');
-  console.log(JSON.stringify(error));
   return (
     <div>
       Home
-      <ErrorComponent loading={loading} error={error} refetch={refetch}>
-        <ul>
-          {!loading &&
-            !error &&
-            fleets?.map((x) => <li key={x.id}>{x.name}</li>)}
-        </ul>
-      </ErrorComponent>
+      <ErrorComponent loading={loading} error={error} refetch={refetch} />
+      <ul>
+        {!loading && !error && fleets.map((x) => <li key={x.id}>{x.name}</li>)}
+      </ul>
     </div>
   );
 }
