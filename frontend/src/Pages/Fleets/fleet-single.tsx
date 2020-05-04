@@ -1,11 +1,12 @@
-import { Link, Redirect, useParams } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, ButtonGroup, Row } from 'react-bootstrap';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 import ErrorComponent from '../../Components/Error';
 import React from 'react';
 import useAxios from 'axios-hooks';
 
 export default function FleetSingle() {
   const { fleetId } = useParams();
+  const history = useHistory();
   const [{ data: fleet, loading, error }, refetch] = useAxios<{
     id: string;
     name: string;
@@ -35,11 +36,17 @@ export default function FleetSingle() {
       refetch={refetch}
     >
       {() => (
-        <>
-          <h1>{fleet?.name}</h1>
-          <Link to={`/fleets/${fleetId}/edit`}>Edit</Link>
-          <Button onClick={() => deleteFleet()}>Delete</Button>
-        </>
+        <Row>
+          <h1 className="col">{fleet?.name}</h1>
+          <ButtonGroup style={{ alignSelf: 'center' }}>
+            <Button onClick={() => history.push(`/fleets/${fleetId}/edit`)}>
+              Edit
+            </Button>
+            <Button onClick={() => deleteFleet()} variant="danger">
+              Delete
+            </Button>
+          </ButtonGroup>
+        </Row>
       )}
     </ErrorComponent>
   );

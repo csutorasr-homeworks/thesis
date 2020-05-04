@@ -1,7 +1,7 @@
 import './App.css';
 
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 
 import AuthModule from './auth/AuthModule';
 import AuthToggle from './auth/AuthToggle';
@@ -42,17 +42,19 @@ function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/fleets">
-            <Fleets />
-          </Route>
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
+        <Container className="mt-3">
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/fleets">
+              <Fleets />
+            </Route>
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
+        </Container>
       </AuthModule>
     </BrowserRouter>
   );
