@@ -1,4 +1,5 @@
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import CarEdit from './car-edit';
 import CarNew from './car-new';
 import CarSingle from './car-single';
 import NotFound from '../../NotFound';
@@ -11,7 +12,9 @@ export default function Cars() {
       <Route path={`${path}/new`}>
         <CarNew />
       </Route>
-      <Route path={`${path}/:carId/edit`}></Route>
+      <Route path={`${path}/:carId/edit`}>
+        <CarEdit />
+      </Route>
       <Route path={`${path}/:carId`}>
         <Switch>
           <Route>

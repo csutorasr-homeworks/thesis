@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Flottapp.Infrastucture.Queries
 {
-    public class GetCarForFleetQuery : IRequest<CarRowVm>
+    public class GetCarForFleetQuery : IRequest<CarVm>
     {
         public string FleetId { get; set; }
         public string CarId { get; set; }
-        public class Handler : IRequestHandler<GetCarForFleetQuery, CarRowVm>
+        public class Handler : IRequestHandler<GetCarForFleetQuery, CarVm>
         {
             private readonly IFleetStore fleetStore;
             private readonly IMapper mapper;
@@ -23,10 +23,10 @@ namespace Flottapp.Infrastucture.Queries
                 this.fleetStore = fleetStore;
                 this.mapper = mapper;
             }
-            public async Task<CarRowVm> Handle(GetCarForFleetQuery request, CancellationToken cancellationToken)
+            public async Task<CarVm> Handle(GetCarForFleetQuery request, CancellationToken cancellationToken)
             {
                 var data = await fleetStore.GetCarForFleet(request.FleetId, request.CarId, cancellationToken);
-                return mapper.Map<CarRowVm>(data);
+                return mapper.Map<CarVm>(data);
             }
         }
     }

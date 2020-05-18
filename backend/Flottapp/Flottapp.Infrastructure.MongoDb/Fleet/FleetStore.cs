@@ -86,6 +86,36 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
             return await cursor.ToListAsync(cancellationToken);
         }
 
+        public async Task ModifyCarInFleet(string fleetId, Car car, CancellationToken cancellationToken)
+        {
+            var index = await _collection.Aggregate()
+                .Match(x => x.Id == fleetId)
+                .Project(x => new
+                {
+                    Cars = x.Cars.Select(y => y.Id)
+                }).Project<IndexObject>(new BsonDocument {
+                    {
+                        "Index",
+                        new BsonDocument {
+                            {
+                                "$indexOfArray",
+                                new BsonArray {
+                                    $"${nameof(Domain.Fleet.Cars)}",
+                                    car.Id
+                                }
+                            }
+                        }
+                    }
+                }).SingleOrDefaultAsync();
+            var result = await _collection.UpdateOneAsync(x => x.Id == fleetId,
+                                                    Builders<Domain.Fleet>.Update.Set(x => x.Cars.ElementAt(index.Index), car),
+                                                    cancellationToken: cancellationToken);
+            if (result.MatchedCount == 0)
+            {
+                throw new FleetNotFoundException();
+            }
+        }
+
         public async Task RemoveUserFromFleet(string id, string userId, CancellationToken cancellationToken)
         {
             var result = await _collection.UpdateOneAsync(x => x.Id == id,
@@ -110,6 +140,11 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
             {
                 throw new FleetNotFoundException();
             }
+        }
+
+        private class IndexObject
+        {
+            public int Index { get; set; }
         }
     }
 }

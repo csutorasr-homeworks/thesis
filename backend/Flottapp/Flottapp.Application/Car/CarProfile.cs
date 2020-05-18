@@ -11,10 +11,12 @@ namespace Flottapp.Application.Car
         {
             CreateMap<Domain.Car, CarRowVm>()
                 .ForMember(x => x.NeedsToBeServiced, opts => opts.MapFrom<CarNeedsToBeServicedResolver>());
+            CreateMap<Domain.Car, CarVm>()
+                .ForMember(x => x.NeedsToBeServiced, opts => opts.MapFrom<CarNeedsToBeServicedResolver>());
         }
     }
 
-    class CarNeedsToBeServicedResolver : IValueResolver<Domain.Car, CarRowVm, bool>
+    class CarNeedsToBeServicedResolver : IValueResolver<Domain.Car, CarRowVm, bool>, IValueResolver<Domain.Car, CarVm, bool>
     {
         private readonly IDateTimeProvider dateTimeProvider;
 
@@ -23,6 +25,10 @@ namespace Flottapp.Application.Car
             this.dateTimeProvider = dateTimeProvider;
         }
         public bool Resolve(Domain.Car car, CarRowVm destination, bool destMember, ResolutionContext context)
+        {
+            return car.ServiceRules?.Any(x => x.NeedsService(car, dateTimeProvider)) ?? false;
+        }
+        public bool Resolve(Domain.Car car, CarVm destination, bool destMember, ResolutionContext context)
         {
             return car.ServiceRules?.Any(x => x.NeedsService(car, dateTimeProvider)) ?? false;
         }
