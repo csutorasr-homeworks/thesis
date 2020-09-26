@@ -1,7 +1,9 @@
 import { Button, ButtonGroup, Row } from 'react-bootstrap';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import CarsList from './Cars/cars-list';
 import ErrorComponent from '../../Components/Error';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import useAxios from 'axios-hooks';
 
@@ -38,14 +40,17 @@ export default function FleetSingle() {
     >
       {() => (
         <>
-          <Row>
-            <h1 className="col">{fleet?.name}</h1>
+          <Row className="mb-5">
+            <h1 className="col">
+              {fleet?.name}
+              <span className="subheader">fleet</span>
+            </h1>
             <ButtonGroup style={{ alignSelf: 'center' }}>
               <Button onClick={() => history.push(`/fleets/${fleetId}/edit`)}>
-                Edit
+                <FontAwesomeIcon icon={faEdit} />
               </Button>
               <Button onClick={() => deleteFleet()} variant="danger">
-                Delete
+                <FontAwesomeIcon icon={faTrash} />
               </Button>
             </ButtonGroup>
           </Row>

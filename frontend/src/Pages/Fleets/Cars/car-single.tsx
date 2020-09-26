@@ -2,7 +2,9 @@ import { Button, ButtonGroup, Row } from 'react-bootstrap';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { CarRowVm } from './cars-list';
 import ErrorComponent from '../../../Components/Error';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import useAxios from 'axios-hooks';
 
 export default function CarSingle() {
@@ -37,15 +39,18 @@ export default function CarSingle() {
     >
       {() => (
         <>
-          <Row>
-            <h1 className="col">{car?.licensePlateNumber}</h1>
+          <Row className="mb-5">
+            <h1 className="col">
+              {car?.licensePlateNumber}
+              <span className="subheader">car</span>
+            </h1>
             <ButtonGroup style={{ alignSelf: 'center' }}>
               <Button
                 onClick={() =>
                   history.push(`/fleets/${fleetId}/cars/${carId}/edit`)
                 }
               >
-                Edit
+                <FontAwesomeIcon icon={faEdit} />
               </Button>
               <Button onClick={() => deactivateCar()} variant="danger">
                 Deactivate

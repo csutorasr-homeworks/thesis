@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import './index.css';
+import './index.scss';
 
 import * as serviceWorker from './serviceWorker';
 

@@ -6,11 +6,12 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import AuthModule from './auth/AuthModule';
 import AuthToggle from './auth/AuthToggle';
 import Fleets from './Pages/Fleets';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Home from './Pages/Home';
 import NotFound from './Pages/NotFound';
 import React from 'react';
+import { faCar } from '@fortawesome/free-solid-svg-icons';
 import { hot } from 'react-hot-loader';
-import logo from './logo.svg';
 
 function App() {
   return (
@@ -18,14 +19,7 @@ function App() {
       <AuthModule>
         <Navbar bg="dark" expand="lg" variant="dark">
           <Navbar.Brand as={Link} to="/">
-            <img
-              alt=""
-              src={logo}
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />
-            React
+            <FontAwesomeIcon icon={faCar} /> Flottapp
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

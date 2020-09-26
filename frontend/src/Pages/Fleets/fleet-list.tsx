@@ -1,6 +1,11 @@
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
+import {
+  faChevronRight,
+  faPlusSquare,
+} from '@fortawesome/free-solid-svg-icons';
 import ErrorComponent from '../../Components/Error';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import useAxios from 'axios-hooks';
 
@@ -17,12 +22,14 @@ export default function FleetList() {
         <>
           <Row>
             {fleets.map((x) => (
-              <Col key={x.id} sm={6} md={4} lg={3} className="mb-4">
+              <Col key={x.id} sm={6} md={4} lg={3} className="mb-4 no-hover">
                 <Link to={`/fleets/${x.id}`}>
                   <Card>
-                    <Card.Body>
+                    <Card.Body className="card-right-button">
                       <Card.Title>{x.name}</Card.Title>
-                      <Button>View</Button>
+                      <Button>
+                        <FontAwesomeIcon icon={faChevronRight} />
+                      </Button>
                     </Card.Body>
                   </Card>
                 </Link>
@@ -30,12 +37,14 @@ export default function FleetList() {
             ))}
           </Row>
           <Row>
-            <Col sm={6} md={4} lg={3} className="mb-4">
+            <Col sm={6} md={4} lg={3} className="mb-4 no-hover ml-auto mr-auto">
               <Link to="/fleets/new">
                 <Card>
                   <Card.Body>
                     <Card.Title>Add new fleet</Card.Title>
-                    <Button>New</Button>
+                    <Button className="card-button">
+                      <FontAwesomeIcon icon={faPlusSquare} />
+                    </Button>
                   </Card.Body>
                 </Card>
               </Link>

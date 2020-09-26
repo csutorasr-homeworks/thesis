@@ -1,6 +1,8 @@
-import { Button, Card, Col, Row } from 'react-bootstrap';
+import { Button, ButtonGroup, Card, Col, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
+import { faEdit, faEye, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import ErrorComponent from '../../../Components/Error';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import useAxios from 'axios-hooks';
 
@@ -22,12 +24,23 @@ export default function CarsList() {
         <>
           <Row>
             {fleets.map((x) => (
-              <Col key={x.id} sm={6} md={4} lg={3} className="mb-4">
+              <Col key={x.id} sm={6} md={4} lg={3} className="mb-4 no-hover">
                 <Link to={`/fleets/${fleetId}/cars/${x.id}`}>
                   <Card>
                     <Card.Body>
                       <Card.Title>{x.licensePlateNumber}</Card.Title>
-                      <Button>View</Button>
+                      <ButtonGroup className="card-button">
+                        <Button>
+                          <FontAwesomeIcon icon={faEye} />
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          as={Link}
+                          to={`/fleets/${fleetId}/cars/${x.id}/edit`}
+                        >
+                          <FontAwesomeIcon icon={faEdit} />
+                        </Button>
+                      </ButtonGroup>
                     </Card.Body>
                   </Card>
                 </Link>
@@ -35,12 +48,14 @@ export default function CarsList() {
             ))}
           </Row>
           <Row>
-            <Col sm={6} md={4} lg={3} className="mb-4">
+            <Col sm={6} md={4} lg={3} className="mb-4 no-hover">
               <Link to={`/fleets/${fleetId}/cars/new`}>
                 <Card>
                   <Card.Body>
                     <Card.Title>Add new car</Card.Title>
-                    <Button>New</Button>
+                    <Button className="card-button">
+                      <FontAwesomeIcon icon={faPlusSquare} />
+                    </Button>
                   </Card.Body>
                 </Card>
               </Link>

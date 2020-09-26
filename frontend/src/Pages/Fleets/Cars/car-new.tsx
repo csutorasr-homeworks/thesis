@@ -40,45 +40,47 @@ export default function CarNew() {
 
   return (
     <Form noValidate validated={true} onSubmit={handleSubmit(onSubmit)}>
-      <Form.Group controlId="formLimitPerMonth">
-        <Form.Label>Limit per month</Form.Label>
-        <Controller
-          as={
-            <Form.Control
-              name="limitPerMonth"
-              type="number"
-              placeholder="Enter limit"
-              required
-            />
-          }
-          control={control}
-          rules={{ required: true }}
-          name="limitPerMonth"
-          defaultValue=""
-        />
-        <Form.Control.Feedback type="invalid">
-          This field is required
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Form.Group controlId="formLicensePlateNumber">
-        <Form.Label>License Plate Number</Form.Label>
-        <Controller
-          as={
-            <Form.Control
-              name="licensePlateNumber"
-              placeholder="Enter license plate number"
-              required
-            />
-          }
-          control={control}
-          rules={{ required: true }}
-          name="licensePlateNumber"
-          defaultValue=""
-        />
-        <Form.Control.Feedback type="invalid">
-          This field is required
-        </Form.Control.Feedback>
-      </Form.Group>
+      <div className="row">
+        <Form.Group controlId="formLimitPerMonth" className="col-lg-6">
+          <Form.Label>Limit per month</Form.Label>
+          <Controller
+            as={
+              <Form.Control
+                name="limitPerMonth"
+                type="number"
+                placeholder="Enter limit"
+                required
+              />
+            }
+            control={control}
+            rules={{ required: true }}
+            name="limitPerMonth"
+            defaultValue=""
+          />
+          <Form.Control.Feedback type="invalid">
+            This field is required
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group controlId="formLicensePlateNumber" className="col-lg-6">
+          <Form.Label>License Plate Number</Form.Label>
+          <Controller
+            as={
+              <Form.Control
+                name="licensePlateNumber"
+                placeholder="Enter license plate number"
+                required
+              />
+            }
+            control={control}
+            rules={{ required: true }}
+            name="licensePlateNumber"
+            defaultValue=""
+          />
+          <Form.Control.Feedback type="invalid">
+            This field is required
+          </Form.Control.Feedback>
+        </Form.Group>
+      </div>
       <Button variant="primary" type="submit" disabled={loading}>
         Submit
       </Button>
