@@ -9,7 +9,7 @@ import ErrorComponent from '../../Components/Error';
 import CarsList from './Cars/cars-list';
 
 export default function FleetSingle(): JSX.Element {
-  const { fleetId } = useParams<{ fleedId: string }>();
+  const { fleetId } = useParams<{ fleetId: string }>();
   const history = useHistory();
   const [{ data: fleet, loading, error }, refetch] = useAxios<{
     id: string;
