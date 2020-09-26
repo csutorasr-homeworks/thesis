@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Alert, Button } from 'react-bootstrap';
 
+import Loading from './Loading';
+
 export default function ErrorComponent({
   loading,
   error,
@@ -13,8 +15,7 @@ export default function ErrorComponent({
   children?: () => ReactElement;
 }): JSX.Element | null {
   if (loading) {
-    // TODO: load page
-    return null;
+    return <Loading />;
   }
   if (error) {
     return (
