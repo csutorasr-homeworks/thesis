@@ -1,5 +1,6 @@
-import FleetList from '../Fleets/fleet-list';
 import React from 'react';
+
+import FleetList from '../Fleets/fleet-list';
 
 export default function Home() {
   return (

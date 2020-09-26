@@ -1,8 +1,8 @@
 import React, { useCallback, useContext } from 'react';
-
-import { AuthContext } from './AuthModule';
-import AuthIsLoggedIn from './AuthIsLoggedIn';
 import { Button } from 'react-bootstrap';
+
+import AuthIsLoggedIn from './AuthIsLoggedIn';
+import { AuthContext } from './AuthModule';
 
 export default function AuthToggle() {
   const context = useContext(AuthContext);

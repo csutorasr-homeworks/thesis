@@ -1,11 +1,12 @@
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useAxios from 'axios-hooks';
+import React from 'react';
 import { Button, ButtonGroup, Row } from 'react-bootstrap';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import CarsList from './Cars/cars-list';
+
 import ErrorComponent from '../../Components/Error';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import useAxios from 'axios-hooks';
+import CarsList from './Cars/cars-list';
 
 export default function FleetSingle() {
   const { fleetId } = useParams();

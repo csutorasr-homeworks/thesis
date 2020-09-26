@@ -1,9 +1,10 @@
+import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
+
+import NotFound from '../../NotFound';
 import CarEdit from './car-edit';
 import CarNew from './car-new';
 import CarSingle from './car-single';
-import NotFound from '../../NotFound';
-import React from 'react';
 
 export default function Cars() {
   const { path } = useRouteMatch();

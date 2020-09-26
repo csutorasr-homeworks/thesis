@@ -1,13 +1,14 @@
-import { Button, Card, Col, Row } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
 import {
   faChevronRight,
   faPlusSquare,
 } from '@fortawesome/free-solid-svg-icons';
-import ErrorComponent from '../../Components/Error';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
 import useAxios from 'axios-hooks';
+import React from 'react';
+import { Button, Card, Col, Row } from 'react-bootstrap';
+import { Link, Redirect } from 'react-router-dom';
+
+import ErrorComponent from '../../Components/Error';
 
 export default function FleetList() {
   const [{ data: fleets, loading, error }, refetch] = useAxios<

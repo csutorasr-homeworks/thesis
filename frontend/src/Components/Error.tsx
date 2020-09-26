@@ -1,5 +1,5 @@
-import { Alert, Button } from 'react-bootstrap';
 import React, { ReactElement } from 'react';
+import { Alert, Button } from 'react-bootstrap';
 
 export default function ErrorComponent({
   loading,

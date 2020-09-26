@@ -1,6 +1,7 @@
-import NotFound from '.';
-import React from 'react';
 import { render } from '@testing-library/react';
+import React from 'react';
+
+import NotFound from '.';
 
 test('renders 404 text', () => {
   const { getByText } = render(<NotFound />);

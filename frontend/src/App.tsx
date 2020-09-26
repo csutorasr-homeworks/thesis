@@ -1,17 +1,17 @@
 import './App.css';
 
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { faCar } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { hot } from 'react-hot-loader';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
 import AuthModule from './auth/AuthModule';
 import AuthToggle from './auth/AuthToggle';
 import Fleets from './Pages/Fleets';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Home from './Pages/Home';
 import NotFound from './Pages/NotFound';
-import React from 'react';
-import { faCar } from '@fortawesome/free-solid-svg-icons';
-import { hot } from 'react-hot-loader';
 
 function App() {
   return (
