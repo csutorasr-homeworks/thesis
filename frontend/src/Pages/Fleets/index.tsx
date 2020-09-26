@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
+import LazyWrapper from '../../Components/LazyWrapper';
 import NotFound from '../NotFound';
-import Cars from './Cars';
-import EditFleet from './edit-fleet';
 import FleetSingle from './fleet-single';
 import NewFleet from './new-fleet';
 
@@ -15,12 +14,12 @@ export default function Fleets(): JSX.Element {
         <NewFleet />
       </Route>
       <Route path={`${path}/:fleetId/edit`}>
-        <EditFleet />
+        <LazyWrapper module={() => import('./edit-fleet')} />
       </Route>
       <Route path={`${path}/:fleetId`}>
         <Switch>
           <Route path={`${path}/:fleetId/cars`}>
-            <Cars />
+            <LazyWrapper module={() => import('./Cars')} />
           </Route>
           <Route>
             <FleetSingle />

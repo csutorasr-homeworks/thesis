@@ -32,5 +32,6 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
     'prettier/prettier': ['error'],
     'simple-import-sort/sort': 'error',
+    '@typescript-eslint/no-unused-vars': 'error',
   },
 };
