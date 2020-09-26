@@ -7,7 +7,7 @@ import EditFleet from './edit-fleet';
 import FleetSingle from './fleet-single';
 import NewFleet from './new-fleet';
 
-export default function Fleets() {
+export default function Fleets(): JSX.Element {
   const { path } = useRouteMatch();
   return (
     <Switch>

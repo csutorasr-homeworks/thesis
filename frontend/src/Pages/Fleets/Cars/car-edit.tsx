@@ -11,8 +11,8 @@ interface FormData {
   limitPerMonth: number;
 }
 
-export default function CarEdit() {
-  const { fleetId, carId } = useParams();
+export default function CarEdit(): JSX.Element {
+  const { fleetId, carId } = useParams<{ fleetId: string; carId: string }>();
   const [{ data: car, loading, error }, refetch] = useAxios<{
     licensePlateNumber: string;
     limitPerMonth: {
@@ -50,7 +50,7 @@ export default function CarEdit() {
   return (
     <ErrorComponent loading={loading} error={error} refetch={refetch}>
       {() => (
-        <Form noValidate validated={true} onSubmit={handleSubmit(onSubmit)}>
+        <Form noValidate validated onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <Form.Group controlId="formLimitPerMonth" className="col-lg-6">
               <Form.Label>Limit per month</Form.Label>

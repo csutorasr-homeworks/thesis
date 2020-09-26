@@ -8,8 +8,8 @@ import { Redirect, useHistory, useParams } from 'react-router-dom';
 import ErrorComponent from '../../Components/Error';
 import CarsList from './Cars/cars-list';
 
-export default function FleetSingle() {
-  const { fleetId } = useParams();
+export default function FleetSingle(): JSX.Element {
+  const { fleetId } = useParams<{ fleedId: string }>();
   const history = useHistory();
   const [{ data: fleet, loading, error }, refetch] = useAxios<{
     id: string;

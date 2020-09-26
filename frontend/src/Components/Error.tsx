@@ -8,10 +8,10 @@ export default function ErrorComponent({
   children,
 }: {
   loading: boolean;
-  error: any;
+  error: Error | undefined;
   refetch?: () => void;
   children?: () => ReactElement;
-}) {
+}): JSX.Element | null {
   if (loading) {
     // TODO: load page
     return null;
@@ -31,3 +31,8 @@ export default function ErrorComponent({
   }
   return null;
 }
+
+ErrorComponent.defaultProps = {
+  refetch: undefined,
+  children: undefined,
+};

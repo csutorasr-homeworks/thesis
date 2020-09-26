@@ -4,7 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { Redirect } from 'react-router-dom';
 
-export default function NewFleet() {
+export default function NewFleet(): JSX.Element {
   const { handleSubmit, control } = useForm<{
     name: string;
   }>();
@@ -29,7 +29,7 @@ export default function NewFleet() {
   }
 
   return (
-    <Form noValidate validated={true} onSubmit={handleSubmit(onSubmit)}>
+    <Form noValidate validated onSubmit={handleSubmit(onSubmit)}>
       <Form.Group controlId="formName">
         <Form.Label>Fleet name</Form.Label>
         <Controller

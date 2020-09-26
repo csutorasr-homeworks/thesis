@@ -2,9 +2,11 @@ import React, { ReactNode, useContext } from 'react';
 
 import { AuthContext } from './AuthModule';
 
-export default function AuthIsLoggedIn(props: {
+export default function AuthIsLoggedIn({
+  children,
+}: {
   children: (isLoggedIn: boolean) => ReactNode;
-}) {
-  const context = useContext(AuthContext);
-  return <>{props.children(context.state.isLoggedIn)}</>;
+}): JSX.Element {
+  const { state } = useContext(AuthContext);
+  return <>{children(state.isLoggedIn)}</>;
 }

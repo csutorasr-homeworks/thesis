@@ -10,7 +10,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 import ErrorComponent from '../../Components/Error';
 
-export default function FleetList() {
+export default function FleetList(): JSX.Element {
   const [{ data: fleets, loading, error }, refetch] = useAxios<
     { id: string; name: string }[]
   >('/fleets');

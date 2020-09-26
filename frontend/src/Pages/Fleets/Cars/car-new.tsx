@@ -9,8 +9,8 @@ interface FormData {
   limitPerMonth: number;
 }
 
-export default function CarNew() {
-  const { fleetId } = useParams();
+export default function CarNew(): JSX.Element {
+  const { fleetId } = useParams<{ fleetId: string }>();
   const { handleSubmit, control } = useForm<FormData>();
   const [{ data: createdId, loading }, send] = useAxios<string>(
     {
@@ -39,7 +39,7 @@ export default function CarNew() {
   }
 
   return (
-    <Form noValidate validated={true} onSubmit={handleSubmit(onSubmit)}>
+    <Form noValidate validated onSubmit={handleSubmit(onSubmit)}>
       <div className="row">
         <Form.Group controlId="formLimitPerMonth" className="col-lg-6">
           <Form.Label>Limit per month</Form.Label>

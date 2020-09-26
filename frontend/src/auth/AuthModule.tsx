@@ -18,7 +18,11 @@ export const AuthContext = createContext<AuthContextData>({
   state: initialValue,
 });
 
-export default function AuthModule(props: { children: React.ReactNode }) {
+export default function AuthModule({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element {
   const [state, setState] = useState(initialValue);
   const value: AuthContextData = {
     state,
@@ -29,7 +33,5 @@ export default function AuthModule(props: { children: React.ReactNode }) {
       });
     },
   };
-  return (
-    <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import AuthIsLoggedIn from './AuthIsLoggedIn';
 import { AuthContext } from './AuthModule';
 
-export default function AuthToggle() {
+export default function AuthToggle(): JSX.Element {
   const context = useContext(AuthContext);
   const toggleSignedIn = useCallback(() => {
     context.setLoggedIn(!context.state.isLoggedIn);

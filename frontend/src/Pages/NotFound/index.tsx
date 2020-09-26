@@ -2,7 +2,7 @@ import './NotFound.css';
 
 import React from 'react';
 
-function NotFound() {
+function NotFound(): JSX.Element {
   return (
     <div
       className="d-flex justify-content-center align-items-center"

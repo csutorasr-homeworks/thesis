@@ -18,7 +18,7 @@ test('callbacks false if not logged in', () => {
       </AuthContext.Provider>
     );
   }
-  render(<TestStub></TestStub>);
+  render(<TestStub />);
   expect(callback).lastCalledWith(false);
 });
 
@@ -36,6 +36,6 @@ test('callbacks true if logged in', () => {
       </AuthContext.Provider>
     );
   }
-  render(<TestStub></TestStub>);
+  render(<TestStub />);
   expect(callback).lastCalledWith(true);
 });

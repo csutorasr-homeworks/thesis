@@ -14,8 +14,8 @@ export interface CarRowVm {
   needsToBeServiced: boolean;
 }
 
-export default function CarsList() {
-  const { fleetId } = useParams();
+export default function CarsList(): JSX.Element {
+  const { fleetId } = useParams<{ fleetId: string }>();
   const [{ data: fleets, loading, error }, refetch] = useAxios<CarRowVm[]>(
     `/fleets/${fleetId}/cars`
   );

@@ -6,8 +6,8 @@ import { Redirect, useParams } from 'react-router-dom';
 
 import ErrorComponent from '../../Components/Error';
 
-export default function EditFleet() {
-  const { fleetId } = useParams();
+export default function EditFleet(): JSX.Element {
+  const { fleetId } = useParams<{ fleedId: string }>();
   const [{ data: fleet, loading, error }, refetch] = useAxios<{
     id: string;
     name: string;
@@ -38,7 +38,7 @@ export default function EditFleet() {
   return (
     <ErrorComponent loading={loading} error={error} refetch={refetch}>
       {() => (
-        <Form noValidate validated={true} onSubmit={handleSubmit(onSubmit)}>
+        <Form noValidate validated onSubmit={handleSubmit(onSubmit)}>
           <Form.Group controlId="formName">
             <Form.Label>Fleet name</Form.Label>
             <Controller

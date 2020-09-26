@@ -6,7 +6,7 @@ import CarEdit from './car-edit';
 import CarNew from './car-new';
 import CarSingle from './car-single';
 
-export default function Cars() {
+export default function Cars(): JSX.Element {
   const { path } = useRouteMatch();
   return (
     <Switch>
