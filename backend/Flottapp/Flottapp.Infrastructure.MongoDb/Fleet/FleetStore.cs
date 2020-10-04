@@ -1,4 +1,5 @@
-﻿using Flottapp.Application.Fleet;
+﻿using Flottapp.Application.Car;
+using Flottapp.Application.Fleet;
 using Flottapp.Application.Fleet.Exceptions;
 using Flottapp.Domain;
 using MongoDB.Bson;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Flottapp.Infrastructure.MongoDb.Fleet
 {
-    class FleetStore : AbstractStore<Domain.Fleet>, IFleetStore
+    class FleetStore : AbstractStore<Domain.Fleet>, IFleetStore, ICarsStore
     {
         public FleetStore(IDatabaseSettings databaseSettings) : base(databaseSettings)
         {

@@ -15,9 +15,5 @@ namespace Flottapp.Application.Fleet
         Task SaveName(Domain.Fleet fleet, CancellationToken cancellationToken);
         Task AddUserToFleet(string id, string userId, CancellationToken cancellationToken);
         Task RemoveUserFromFleet(string id, string userId, CancellationToken cancellationToken);
-        Task<string> AddCarToFleet(string fleetId, Domain.Car car, CancellationToken cancellationToken);
-        Task ModifyCarInFleet(string fleetId, Domain.Car car, CancellationToken cancellationToken);
-        Task DeactivateCarForFleet(string fleetId, string carId, CancellationToken cancellationToken);
-        Task<Domain.Car> GetCarForFleet(string fleetId, string carId, CancellationToken cancellationToken);
     }
 }

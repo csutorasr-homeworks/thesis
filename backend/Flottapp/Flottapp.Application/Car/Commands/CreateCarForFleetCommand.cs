@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Flottapp.Application.Fleet;
+using Flottapp.Application.Car;
 using Flottapp.Domain;
 using MediatR;
 using MongoDB.Bson;
@@ -14,19 +14,19 @@ namespace Flottapp.Infrastucture.Commands
         public Dto Data { get; set; }
         public class Handler : IRequestHandler<CreateCarForFleetCommand, string>
         {
-            private readonly IFleetStore fleetStore;
+            private readonly ICarsStore carsStore;
             private readonly IMapper mapper;
             private readonly IDateTimeProvider dateTimeProvider;
 
-            public Handler(IFleetStore fleetStore, IMapper mapper, IDateTimeProvider dateTimeProvider)
+            public Handler(ICarsStore carsStore, IMapper mapper, IDateTimeProvider dateTimeProvider)
             {
-                this.fleetStore = fleetStore;
+                this.carsStore = carsStore;
                 this.mapper = mapper;
                 this.dateTimeProvider = dateTimeProvider;
             }
             public async Task<string> Handle(CreateCarForFleetCommand request, CancellationToken cancellationToken)
             {
-                return await fleetStore.AddCarToFleet(request.FleetId, new Car
+                return await carsStore.AddCarToFleet(request.FleetId, new Car
                 {
                     Id = ObjectId.GenerateNewId().ToString(),
                     Activated = true,

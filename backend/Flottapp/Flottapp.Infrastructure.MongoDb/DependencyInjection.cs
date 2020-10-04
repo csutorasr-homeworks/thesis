@@ -1,4 +1,5 @@
-﻿using Flottapp.Application.Fleet;
+﻿using Flottapp.Application.Car;
+using Flottapp.Application.Fleet;
 using Flottapp.Domain;
 using Flottapp.Infrastructure.MongoDb;
 using Flottapp.Infrastructure.MongoDb.Fleet;
@@ -15,6 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             ConfigureDatabase(services, configuration);
             services.AddSingleton<IFleetStore, FleetStore>();
+            services.AddSingleton<ICarsStore, FleetStore>();
             BsonClassMap.RegisterClassMap<Fleet>(cm =>
             {
                 cm.AutoMap();

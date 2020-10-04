@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using Flottapp.Application.Fleet;
+using Flottapp.Application.Car;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,17 +12,17 @@ namespace Flottapp.Infrastucture.Queries
         public string CarId { get; set; }
         public class Handler : IRequestHandler<GetCarForFleetQuery, CarVm>
         {
-            private readonly IFleetStore fleetStore;
+            private readonly ICarsStore carsStore;
             private readonly IMapper mapper;
 
-            public Handler(IFleetStore fleetStore, IMapper mapper)
+            public Handler(ICarsStore carsStore, IMapper mapper)
             {
-                this.fleetStore = fleetStore;
+                this.carsStore = carsStore;
                 this.mapper = mapper;
             }
             public async Task<CarVm> Handle(GetCarForFleetQuery request, CancellationToken cancellationToken)
             {
-                var data = await fleetStore.GetCarForFleet(request.FleetId, request.CarId, cancellationToken);
+                var data = await carsStore.GetCarForFleet(request.FleetId, request.CarId, cancellationToken);
                 return mapper.Map<CarVm>(data);
             }
         }
