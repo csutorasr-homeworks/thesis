@@ -26,7 +26,7 @@ namespace Flottapp.Controllers
             return await mediator.Send(new ListFleetsQuery(), cancellationToken);
         }
         [HttpGet("{id:length(24)}")]
-        public async Task<FleetRowVm> Get(string id, CancellationToken cancellationToken)
+        public async Task<FleetVm> Get(string id, CancellationToken cancellationToken)
         {
             return await mediator.Send(new GetFleetQuery { Id = id }, cancellationToken);
         }
@@ -50,7 +50,7 @@ namespace Flottapp.Controllers
         {
             await mediator.Send(new AddUserToFleetCommand { Id = id, Data = dto }, cancellationToken);
         }
-        [HttpDelete("{id:length(24)}/users/{userId:length(24)}")]
+        [HttpDelete("{id:length(24)}/users/{userId}")]
         public async Task RemoveUser(string id, string userId, CancellationToken cancellationToken)
         {
             await mediator.Send(new RemoveUserFromFleetCommand { Id = id, UserId = userId }, cancellationToken);

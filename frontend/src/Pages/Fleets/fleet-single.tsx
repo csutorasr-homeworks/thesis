@@ -1,4 +1,8 @@
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEdit,
+  faTrash,
+  faUserFriends,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAxios from 'axios-hooks';
 import React from 'react';
@@ -49,6 +53,12 @@ export default function FleetSingle(): JSX.Element {
             <ButtonGroup style={{ alignSelf: 'center' }}>
               <Button onClick={() => history.push(`/fleets/${fleetId}/edit`)}>
                 <FontAwesomeIcon icon={faEdit} />
+              </Button>
+              <Button
+                onClick={() => history.push(`/fleets/${fleetId}/edit-users`)}
+                variant="secondary"
+              >
+                <FontAwesomeIcon icon={faUserFriends} />
               </Button>
               <Button onClick={() => deleteFleet()} variant="danger">
                 <FontAwesomeIcon icon={faTrash} />
