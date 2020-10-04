@@ -6,7 +6,7 @@ import { Redirect, useParams } from 'react-router-dom';
 
 import ErrorComponent from '../../Components/Error';
 
-export default function EditFleet(): JSX.Element {
+export default function FleetEdit(): JSX.Element {
   const { fleetId } = useParams<{ fleetId: string }>();
   const [{ data: fleet, loading, error }, refetch] = useAxios<{
     id: string;

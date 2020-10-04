@@ -14,7 +14,7 @@ export default function Fleets(): JSX.Element {
         <NewFleet />
       </Route>
       <Route path={`${path}/:fleetId/edit`}>
-        <LazyWrapper module={() => import('./edit-fleet')} />
+        <LazyWrapper module={() => import('./fleet-edit')} />
       </Route>
       <Route path={`${path}/:fleetId`}>
         <Switch>
