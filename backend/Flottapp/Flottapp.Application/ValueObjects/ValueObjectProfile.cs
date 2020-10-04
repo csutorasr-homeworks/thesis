@@ -8,6 +8,7 @@ namespace Flottapp.Application
         public ValueObjectProfile()
         {
             CreateMap<Domain.Money, MoneyVm>().ReverseMap();
+            CreateMap<Domain.Location, LocationVm>().ReverseMap();
         }
     }
 }

@@ -5,6 +5,7 @@ import NotFound from '../../NotFound';
 import CarEdit from './car-edit';
 import CarNew from './car-new';
 import CarSingle from './car-single';
+import CarRegistrationNew from './registrations/car-registration-new';
 
 export default function Cars(): JSX.Element {
   const { path } = useRouteMatch();
@@ -18,6 +19,9 @@ export default function Cars(): JSX.Element {
       </Route>
       <Route path={`${path}/:carId`}>
         <Switch>
+          <Route path={`${path}/:carId/add-registration`}>
+            <CarRegistrationNew />
+          </Route>
           <Route>
             <CarSingle />
           </Route>

@@ -1,6 +1,6 @@
 ﻿namespace Flottapp.Infrastucture
 {
-    public class Location
+    public class LocationVm
     {
         public decimal Longitude { get; set; }
         public decimal Langitude { get; set; }

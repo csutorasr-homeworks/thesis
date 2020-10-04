@@ -1,4 +1,4 @@
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAxios from 'axios-hooks';
 import React from 'react';
@@ -7,6 +7,7 @@ import { Redirect, useHistory, useParams } from 'react-router-dom';
 
 import ErrorComponent from '../../../Components/Error';
 import { CarRowVm } from './cars-list';
+import CarRegistrationList from './registrations/car-registartion-list';
 
 export default function CarSingle(): JSX.Element {
   const { fleetId, carId } = useParams<{ fleetId: string; carId: string }>();
@@ -58,6 +59,23 @@ export default function CarSingle(): JSX.Element {
               </Button>
             </ButtonGroup>
           </Row>
+          <Row>
+            <h2 className="col">Registrations</h2>
+            <ButtonGroup style={{ alignSelf: 'center' }}>
+              <Button
+                onClick={() =>
+                  history.push(
+                    `/fleets/${fleetId}/cars/${carId}/add-registration`
+                  )
+                }
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </Button>
+            </ButtonGroup>
+          </Row>
+          <div className="mb-5">
+            <CarRegistrationList />
+          </div>
         </>
       )}
     </ErrorComponent>
