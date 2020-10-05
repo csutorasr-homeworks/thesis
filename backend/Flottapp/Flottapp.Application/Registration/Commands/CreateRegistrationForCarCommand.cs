@@ -21,17 +21,17 @@ namespace Flottapp.Infrastucture.Commands
         {
             private readonly IRegistrationsStore registrationStore;
             private readonly IMapper mapper;
-            private readonly IDateTimeProvider dateTimeProvider;
+            private readonly IMediator mediator;
 
-            public Handler(IRegistrationsStore registrationStore, IMapper mapper, IDateTimeProvider dateTimeProvider)
+            public Handler(IRegistrationsStore registrationStore, IMapper mapper, IMediator mediator)
             {
                 this.registrationStore = registrationStore;
                 this.mapper = mapper;
-                this.dateTimeProvider = dateTimeProvider;
+                this.mediator = mediator;
             }
             public async Task<string> Handle(CreateRegistrationForCarCommand request, CancellationToken cancellationToken)
             {
-                return await registrationStore.AddRegistrationForCar(request.FleetId, request.CarId, new Registration
+                var registration = new Registration
                 {
                     Id = ObjectId.GenerateNewId().ToString(),
                     Location = mapper.Map<Location>(request.Data.Location),
@@ -39,7 +39,10 @@ namespace Flottapp.Infrastucture.Commands
                     Price = mapper.Map<Money>(request.Data.Price),
                     RefuelQuantity = request.Data.RefuelQuantity,
                     CreationTime = request.Data.Time,
-                }, cancellationToken);
+                };
+                var registrationId = await registrationStore.AddRegistrationForCar(request.FleetId, request.CarId, registration, cancellationToken);
+                await mediator.Publish(mapper.Map<CreateRegistrationForCarEvent>(registration));
+                return registrationId;
             }
         }
 

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using Flottapp.Domain;
 using Flottapp.Infrastucture;
-using System.Linq;
+using Flottapp.Infrastucture.Commands;
 
 namespace Flottapp.Application.Registration
 {
@@ -11,6 +10,11 @@ namespace Flottapp.Application.Registration
         {
             CreateMap<Domain.Registration, RegistrationVm>()
                 .ForMember(x => x.Time, x => x.MapFrom(r => r.CreationTime));
+            CreateMap<Domain.Registration, CreateRegistrationForCarEvent>().ConstructUsing(registration => new CreateRegistrationForCarEvent
+            {
+                Registration = registration,
+            });
+            CreateMap<DeleteRegistrationForCarCommand, DeleteRegistrationForCarEvent>();
         }
     }
 }

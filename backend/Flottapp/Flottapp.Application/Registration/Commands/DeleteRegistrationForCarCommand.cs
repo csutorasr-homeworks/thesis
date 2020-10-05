@@ -18,15 +18,18 @@ namespace Flottapp.Infrastucture.Commands
         {
             private readonly IRegistrationsStore registrationStore;
             private readonly IMapper mapper;
+            private readonly IMediator mediator;
 
-            public Handler(IRegistrationsStore registrationStore, IMapper mapper)
+            public Handler(IRegistrationsStore registrationStore, IMapper mapper, IMediator mediator)
             {
                 this.registrationStore = registrationStore;
                 this.mapper = mapper;
+                this.mediator = mediator;
             }
             public async Task<Unit> Handle(DeleteRegistrationForCarCommand request, CancellationToken cancellationToken)
             {
                 await registrationStore.DeleteRegistrationForCar(request.FleetId, request.CarId, request.RegistrationId, cancellationToken);
+                await mediator.Publish(mapper.Map<DeleteRegistrationForCarEvent>(request));
                 return Unit.Value;
             }
         }

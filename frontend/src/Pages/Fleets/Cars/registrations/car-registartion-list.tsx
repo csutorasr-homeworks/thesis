@@ -7,7 +7,11 @@ import { useParams } from 'react-router-dom';
 
 import ErrorComponent from '../../../../Components/Error';
 
-export default function CarRegistrationList(): JSX.Element {
+export default function CarRegistrationList({
+  registrationRemoved,
+}: {
+  registrationRemoved: () => void;
+}): JSX.Element {
   const { fleetId, carId } = useParams<{ fleetId: string; carId: string }>();
   const [{ data: registrations, loading, error }, refetch] = useAxios<
     {
@@ -25,9 +29,10 @@ export default function CarRegistrationList(): JSX.Element {
       };
     }[]
   >(`/fleets/${fleetId}/cars/${carId}/registrations`);
-  const [{ loading: removeLoading, error: removeError }, removeUser] = useAxios<
-    string
-  >(
+  const [
+    { loading: removeLoading, error: removeError },
+    removeRegistration,
+  ] = useAxios<string>(
     {
       method: 'DELETE',
       url: `/fleets/${fleetId}/users/userid`,
@@ -38,12 +43,13 @@ export default function CarRegistrationList(): JSX.Element {
   );
   const onRemove = useCallback(
     async (registrationId: string) => {
-      await removeUser({
+      await removeRegistration({
         url: `/fleets/${fleetId}/cars/${carId}/registrations/${registrationId}`,
       });
+      registrationRemoved();
       refetch();
     },
-    [fleetId, carId, removeUser, refetch]
+    [fleetId, carId, removeRegistration, registrationRemoved, refetch]
   );
 
   return (

@@ -1,12 +1,15 @@
 import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAxios from 'axios-hooks';
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Button, ButtonGroup, Row } from 'react-bootstrap';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 
 import ErrorComponent from '../../../Components/Error';
 import { CarRowVm } from './cars-list';
+import MonthlyAggregateList, {
+  MonthlyAggregateListHandles,
+} from './monthly-aggregate/monthly-aggreage-list';
 import CarRegistrationList from './registrations/car-registartion-list';
 
 export default function CarSingle(): JSX.Element {
@@ -30,6 +33,10 @@ export default function CarSingle(): JSX.Element {
       manual: true,
     }
   );
+  const aggregateListRef = useRef<MonthlyAggregateListHandles>(null);
+  const registrationRemoved = useCallback(() => {
+    aggregateListRef.current?.refetch();
+  }, [aggregateListRef]);
   if (deleted) {
     return <Redirect to={`/fleets/${fleetId}`} />;
   }
@@ -74,7 +81,13 @@ export default function CarSingle(): JSX.Element {
             </ButtonGroup>
           </Row>
           <div className="mb-5">
-            <CarRegistrationList />
+            <CarRegistrationList registrationRemoved={registrationRemoved} />
+          </div>
+          <Row>
+            <h2 className="col">MonthlyAggregates</h2>
+          </Row>
+          <div className="mb-5">
+            <MonthlyAggregateList ref={aggregateListRef} />
           </div>
         </>
       )}
