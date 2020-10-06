@@ -1,4 +1,4 @@
-import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCogs, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAxios from 'axios-hooks';
 import React, { useCallback, useRef } from 'react';
@@ -68,6 +68,13 @@ export default function CarSingle(): JSX.Element {
                 }
               >
                 <FontAwesomeIcon icon={faEdit} />
+              </Button>
+              <Button
+                onClick={() =>
+                  history.push(`/fleets/${fleetId}/cars/${carId}/service-rules`)
+                }
+              >
+                <FontAwesomeIcon icon={faCogs} />
               </Button>
               <Button onClick={() => deactivateCar()} variant="danger">
                 Deactivate

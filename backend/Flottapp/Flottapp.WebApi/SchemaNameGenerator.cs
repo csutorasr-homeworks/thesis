@@ -25,6 +25,10 @@ namespace Flottapp.WebApi
 
         private bool IsCommand(Type type)
         {
+            if (type.IsEnum)
+            {
+                return false;
+            }
             while (type != null)
             {
                 if (type.GetInterfaces().Any(x => x == typeof(IRequest) || x.GetGenericTypeDefinition() == typeof(IRequest<>)))
