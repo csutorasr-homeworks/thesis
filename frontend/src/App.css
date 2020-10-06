@@ -13,3 +13,8 @@ body,
   display: flex;
   flex-direction: column;
 }
+
+h1,
+h2 {
+  margin-bottom: 0;
+}

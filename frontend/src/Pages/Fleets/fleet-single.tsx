@@ -50,7 +50,10 @@ export default function FleetSingle(): JSX.Element {
               {fleet?.name}
               <span className="subheader">fleet</span>
             </h1>
-            <ButtonGroup style={{ alignSelf: 'center' }}>
+            <ButtonGroup
+              style={{ alignSelf: 'center' }}
+              className="col flex-grow-0"
+            >
               <Button onClick={() => history.push(`/fleets/${fleetId}/edit`)}>
                 <FontAwesomeIcon icon={faEdit} />
               </Button>

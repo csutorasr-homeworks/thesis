@@ -53,12 +53,15 @@ export default function CarSingle(): JSX.Element {
     >
       {() => (
         <>
-          <Row className="mb-5">
+          <Row className="mb-4">
             <h1 className="col">
               {car?.licensePlateNumber}
               <span className="subheader">car</span>
             </h1>
-            <ButtonGroup style={{ alignSelf: 'center' }}>
+            <ButtonGroup
+              style={{ alignSelf: 'center' }}
+              className="col flex-grow-0"
+            >
               <Button
                 onClick={() =>
                   history.push(`/fleets/${fleetId}/cars/${carId}/edit`)
@@ -71,9 +74,12 @@ export default function CarSingle(): JSX.Element {
               </Button>
             </ButtonGroup>
           </Row>
-          <Row>
+          <Row className="mb-2">
             <h2 className="col">Registrations</h2>
-            <ButtonGroup style={{ alignSelf: 'center' }}>
+            <ButtonGroup
+              style={{ alignSelf: 'center' }}
+              className="col flex-grow-0"
+            >
               <Button
                 onClick={() =>
                   history.push(
@@ -85,22 +91,22 @@ export default function CarSingle(): JSX.Element {
               </Button>
             </ButtonGroup>
           </Row>
-          <div className="mb-5">
+          <div className="mb-3">
             <CarRegistrationList registrationRemoved={registrationRemoved} />
           </div>
-          <Row>
-            <h2 className="col">MonthlyAggregates</h2>
+          <Row className="mb-2">
+            <h2 className="col">Monthly aggregates</h2>
           </Row>
-          <div className="mb-5">
+          <div className="mb-3">
             <MonthlyAggregateList
               ref={aggregateListRef}
               monthlyAggregateAccepted={monthlyAggregateAccepted}
             />
           </div>
-          <Row>
+          <Row className="mb-2">
             <h2 className="col">Payments</h2>
           </Row>
-          <div className="mb-5">
+          <div className="mb-3">
             <PaymentsList ref={paymentListRef} />
           </div>
         </>
