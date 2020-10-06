@@ -17,19 +17,29 @@ namespace Flottapp.Infrastucture.Commands
             private readonly ICarsStore carsStore;
             private readonly IMapper mapper;
             private readonly IDateTimeProvider dateTimeProvider;
+            private readonly IMediator mediator;
 
-            public Handler(ICarsStore carsStore, IMapper mapper, IDateTimeProvider dateTimeProvider)
+            public Handler(ICarsStore carsStore, IMapper mapper, IDateTimeProvider dateTimeProvider, IMediator mediator)
             {
                 this.carsStore = carsStore;
                 this.mapper = mapper;
                 this.dateTimeProvider = dateTimeProvider;
+                this.mediator = mediator;
             }
             public async Task<Unit> Handle(ModifyCarForFleetCommand request, CancellationToken cancellationToken)
             {
                 var car = await carsStore.GetCarForFleet(request.FleetId, request.CarId, cancellationToken);
-                car.LimitPerMonth = mapper.Map<Money>(request.Data.LimitPerMonth);
+                var newLimit = mapper.Map<Money>(request.Data.LimitPerMonth);
+                var limitChanged = newLimit.Currency != car.LimitPerMonth.Currency || newLimit.Value != car.LimitPerMonth.Value;
+                car.LimitPerMonth = newLimit;
                 car.LicensePlateNumber = request.Data.LicensePlateNumber;
                 await carsStore.ModifyCarInFleet(request.FleetId, car, cancellationToken);
+                if (limitChanged)
+                {
+                    var @event = mapper.Map<CarLimitChangedEvent>(car);
+                    @event.FleetId = request.FleetId;
+                    await mediator.Publish(@event, cancellationToken: cancellationToken);
+                }
                 return Unit.Value;
             }
         }

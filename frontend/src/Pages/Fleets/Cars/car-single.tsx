@@ -10,6 +10,7 @@ import { CarRowVm } from './cars-list';
 import MonthlyAggregateList, {
   MonthlyAggregateListHandles,
 } from './monthly-aggregate/monthly-aggreage-list';
+import PaymentsList, { PaymentsListHandles } from './payments/payments-list';
 import CarRegistrationList from './registrations/car-registartion-list';
 
 export default function CarSingle(): JSX.Element {
@@ -37,6 +38,10 @@ export default function CarSingle(): JSX.Element {
   const registrationRemoved = useCallback(() => {
     aggregateListRef.current?.refetch();
   }, [aggregateListRef]);
+  const paymentListRef = useRef<PaymentsListHandles>(null);
+  const monthlyAggregateAccepted = useCallback(() => {
+    paymentListRef.current?.refetch();
+  }, [paymentListRef]);
   if (deleted) {
     return <Redirect to={`/fleets/${fleetId}`} />;
   }
@@ -87,7 +92,16 @@ export default function CarSingle(): JSX.Element {
             <h2 className="col">MonthlyAggregates</h2>
           </Row>
           <div className="mb-5">
-            <MonthlyAggregateList ref={aggregateListRef} />
+            <MonthlyAggregateList
+              ref={aggregateListRef}
+              monthlyAggregateAccepted={monthlyAggregateAccepted}
+            />
+          </div>
+          <Row>
+            <h2 className="col">Payments</h2>
+          </Row>
+          <div className="mb-5">
+            <PaymentsList ref={paymentListRef} />
           </div>
         </>
       )}

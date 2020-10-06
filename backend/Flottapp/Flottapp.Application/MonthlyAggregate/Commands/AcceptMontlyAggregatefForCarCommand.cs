@@ -18,15 +18,22 @@ namespace Flottapp.Infrastucture.Commands
         {
             private readonly IMonthlyAggregatesStore monthlyAggregatesStore;
             private readonly IMapper mapper;
+            private readonly IMediator mediator;
+            private readonly IMonthlyAggregateLimitsStore monthlyAggregateLimitsStore;
 
-            public Handler(IMonthlyAggregatesStore monthlyAggregatesStore, IMapper mapper)
+            public Handler(IMonthlyAggregatesStore monthlyAggregatesStore, IMapper mapper, IMediator mediator, IMonthlyAggregateLimitsStore monthlyAggregateLimitsStore)
             {
                 this.monthlyAggregatesStore = monthlyAggregatesStore;
                 this.mapper = mapper;
+                this.mediator = mediator;
+                this.monthlyAggregateLimitsStore = monthlyAggregateLimitsStore;
             }
             public async Task<Unit> Handle(AcceptMontlyAggregatefForCarCommand request, CancellationToken cancellationToken)
             {
-                await monthlyAggregatesStore.AcceptMonthlyAggregate(request.FleetId, request.CarId, request.AggregateId, cancellationToken);
+                var limit = await monthlyAggregateLimitsStore.GetLimitForCar(request.FleetId, request.CarId, cancellationToken);
+                await monthlyAggregatesStore.AcceptMonthlyAggregate(request.FleetId, request.CarId, request.AggregateId, limit, cancellationToken);
+                var @event = mapper.Map<MonthlyAggregateAcceptedEvent>(await monthlyAggregatesStore.GetMonthlyAggregateById(request.AggregateId, cancellationToken));
+                await mediator.Publish(@event, cancellationToken: cancellationToken);
                 return Unit.Value;
             }
         }

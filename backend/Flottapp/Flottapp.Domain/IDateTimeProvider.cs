@@ -6,6 +6,6 @@ namespace Flottapp.Domain
 {
     public interface IDateTimeProvider
     {
-        DateTime Now();
+        DateTimeOffset Now();
     }
 }

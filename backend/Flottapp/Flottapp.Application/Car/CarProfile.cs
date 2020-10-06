@@ -13,6 +13,9 @@ namespace Flottapp.Application.Car
                 .ForMember(x => x.NeedsToBeServiced, opts => opts.MapFrom<CarNeedsToBeServicedResolver>());
             CreateMap<Domain.Car, CarVm>()
                 .ForMember(x => x.NeedsToBeServiced, opts => opts.MapFrom<CarNeedsToBeServicedResolver>());
+            CreateMap<Domain.Car, CarLimitChangedEvent>()
+                .ForMember(x => x.CarId, y => y.MapFrom(x => x.Id))
+                .ForMember(x => x.Limit, y => y.MapFrom(x => x.LimitPerMonth));
         }
     }
 

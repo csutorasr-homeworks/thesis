@@ -7,9 +7,9 @@ namespace Flottapp.Application.Providers
 {
     class DateTimeProvider : IDateTimeProvider
     {
-        public DateTime Now()
+        public DateTimeOffset Now()
         {
-            return DateTime.Now;
+            return DateTimeOffset.Now;
         }
     }
 }

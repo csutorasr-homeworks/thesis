@@ -14,9 +14,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Flottapp.Domain\Flottapp.Domain.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MonthlyAggregate\EventHandlers\" />
-    <Folder Include="Registration\Events\" />
-  </ItemGroup>
 </Project>

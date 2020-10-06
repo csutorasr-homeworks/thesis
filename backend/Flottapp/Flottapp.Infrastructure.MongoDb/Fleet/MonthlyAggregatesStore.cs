@@ -15,13 +15,19 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
         {
         }
 
-        public async Task AcceptMonthlyAggregate(string fleetId, string carId, string monthlyAggregateId, CancellationToken cancellationToken)
+        public async Task AcceptMonthlyAggregate(string fleetId, string carId, string monthlyAggregateId, Money limit, CancellationToken cancellationToken)
         {
-            await _collection.UpdateOneAsync(
-                x => x.Id == monthlyAggregateId && x.FleetId == fleetId && x.CarId == carId,
-                Builders<MontlyAggregate>.Update.Set(x => x.Accepted, true),
+            var result = await _collection.UpdateOneAsync(
+                x => x.Id == monthlyAggregateId && x.FleetId == fleetId && x.CarId == carId && x.Accepted == null,
+                Builders<MontlyAggregate>.Update
+                    .Set(x => x.Accepted, true)
+                    .Set(x => x.Limit, limit),
                 cancellationToken: cancellationToken
             );
+            if (result.ModifiedCount == 0)
+            {
+                throw new MonthlyAggregateAlreadyAcceptedException();
+            }
         }
 
         public async Task AddNewRegistrationForCar(Registration registration, CancellationToken cancellationToken)
@@ -29,9 +35,9 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
             var month = registration.CreationTime.Month;
             var year = registration.CreationTime.Year;
             await _collection.UpdateOneAsync(
-                x => x.FleetId == registration.FleetId && x.CarId == registration.CarId && x.Month == month && x.Year == year,
+                x => x.FleetId == registration.FleetId && x.CarId == registration.CarId && x.Month == month && x.Year == year && x.Accepted == null,
                 Builders<MontlyAggregate>.Update
-                    .Set(x => x.Accepted, false)
+                    .Set(x => x.Accepted, null)
                     .SetOnInsert(x => x.Id, ObjectId.GenerateNewId().ToString())
                     .SetOnInsert(x => x.CarId, registration.CarId)
                     .SetOnInsert(x => x.FleetId, registration.FleetId)
@@ -46,6 +52,12 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
             );
         }
 
+        public async Task<MontlyAggregate> GetMonthlyAggregateById(string aggregateId, CancellationToken cancellationToken)
+        {
+            var result = await _collection.FindAsync(x => x.Id == aggregateId, cancellationToken: cancellationToken);
+            return await result.FirstOrDefaultAsync(cancellationToken);
+        }
+
         public async Task<IEnumerable<MontlyAggregate>> GetMonthlyAggregates(string fleetId, string carId, CancellationToken cancellationToken)
         {
             var result = await _collection.FindAsync(x => x.FleetId == fleetId && x.CarId == carId, cancellationToken: cancellationToken);
@@ -55,7 +67,7 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
         public async Task RejectMonthlyAggregate(string fleetId, string carId, string monthlyAggregateId, CancellationToken cancellationToken)
         {
             await _collection.UpdateOneAsync(
-                x => x.Id == monthlyAggregateId && x.FleetId == fleetId && x.CarId == carId,
+                x => x.Id == monthlyAggregateId && x.FleetId == fleetId && x.CarId == carId && x.Accepted == null,
                 Builders<MontlyAggregate>.Update.Set(x => x.Accepted, false),
                 cancellationToken: cancellationToken
             );

@@ -16,10 +16,14 @@ export interface MonthlyAggregateListHandles {
   refetch: () => void;
 }
 
-const MonthlyAggregateList: ForwardRefRenderFunction<MonthlyAggregateListHandles> = (
-  _,
-  ref
-) => {
+interface Props {
+  monthlyAggregateAccepted: () => void;
+}
+
+const MonthlyAggregateList: ForwardRefRenderFunction<
+  MonthlyAggregateListHandles,
+  Props
+> = ({ monthlyAggregateAccepted }: Props, ref) => {
   const { fleetId, carId } = useParams<{ fleetId: string; carId: string }>();
   const [{ data: monthlyAggregates, loading, error }, refetch] = useAxios<
     {
@@ -46,14 +50,11 @@ const MonthlyAggregateList: ForwardRefRenderFunction<MonthlyAggregateListHandles
       manual: true,
     }
   );
-  useImperativeHandle<MonthlyAggregateListHandles, MonthlyAggregateListHandles>(
-    ref,
-    () => ({
-      refetch: () => {
-        refetch();
-      },
-    })
-  );
+  useImperativeHandle(ref, () => ({
+    refetch: () => {
+      refetch();
+    },
+  }));
   const onReject = useCallback(
     async (monthlyAggregateId: string) => {
       await action({
@@ -71,8 +72,9 @@ const MonthlyAggregateList: ForwardRefRenderFunction<MonthlyAggregateListHandles
         url: `/fleets/${fleetId}/cars/${carId}/monthly-aggregate/${monthlyAggregateId}/accept`,
       });
       refetch();
+      monthlyAggregateAccepted();
     },
-    [fleetId, carId, action, refetch]
+    [fleetId, carId, action, refetch, monthlyAggregateAccepted]
   );
 
   return (
@@ -95,20 +97,24 @@ const MonthlyAggregateList: ForwardRefRenderFunction<MonthlyAggregateListHandles
                       {monthlyAggregate.year}/{monthlyAggregate.month}
                     </span>
                     <span style={{ flex: 1 }} />
-                    <Button
-                      onClick={() => onAccept(monthlyAggregate.id)}
-                      variant="primary"
-                      disabled={monthlyAggregate.accepted}
-                    >
-                      <FontAwesomeIcon icon={faCheck} />
-                    </Button>
-                    <Button
-                      onClick={() => onReject(monthlyAggregate.id)}
-                      variant="danger"
-                      disabled={!monthlyAggregate.accepted}
-                    >
-                      <FontAwesomeIcon icon={faTimes} />
-                    </Button>
+                    {(monthlyAggregate.accepted === true && 'Accepted') || (
+                      <>
+                        <Button
+                          onClick={() => onAccept(monthlyAggregate.id)}
+                          variant="primary"
+                          disabled={monthlyAggregate.accepted}
+                        >
+                          <FontAwesomeIcon icon={faCheck} />
+                        </Button>
+                        <Button
+                          onClick={() => onReject(monthlyAggregate.id)}
+                          variant="danger"
+                          disabled={!monthlyAggregate.accepted}
+                        >
+                          <FontAwesomeIcon icon={faTimes} />
+                        </Button>
+                      </>
+                    )}
                   </ListGroup.Item>
                 ))}
               </ListGroup>

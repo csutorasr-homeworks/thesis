@@ -41,7 +41,7 @@ namespace Flottapp.Infrastucture.Commands
                     CreationTime = request.Data.Time,
                 };
                 var registrationId = await registrationStore.AddRegistrationForCar(request.FleetId, request.CarId, registration, cancellationToken);
-                await mediator.Publish(mapper.Map<CreateRegistrationForCarEvent>(registration));
+                await mediator.Publish(mapper.Map<CreateRegistrationForCarEvent>(registration), cancellationToken: cancellationToken);
                 return registrationId;
             }
         }

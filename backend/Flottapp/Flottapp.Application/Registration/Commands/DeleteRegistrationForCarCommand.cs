@@ -29,7 +29,7 @@ namespace Flottapp.Infrastucture.Commands
             public async Task<Unit> Handle(DeleteRegistrationForCarCommand request, CancellationToken cancellationToken)
             {
                 await registrationStore.DeleteRegistrationForCar(request.FleetId, request.CarId, request.RegistrationId, cancellationToken);
-                await mediator.Publish(mapper.Map<DeleteRegistrationForCarEvent>(request));
+                await mediator.Publish(mapper.Map<DeleteRegistrationForCarEvent>(request), cancellationToken: cancellationToken);
                 return Unit.Value;
             }
         }

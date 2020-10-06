@@ -1,6 +1,7 @@
 ﻿using Flottapp.Application.Car;
 using Flottapp.Application.Fleet;
 using Flottapp.Application.MonthlyAggregate;
+using Flottapp.Application.Payments;
 using Flottapp.Application.Registration;
 using Flottapp.Domain;
 using Flottapp.Infrastructure.MongoDb;
@@ -21,12 +22,24 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICarsStore, FleetStore>();
             services.AddSingleton<IRegistrationsStore, RegistrationsStore>();
             services.AddSingleton<IMonthlyAggregatesStore, MonthlyAggregatesStore>();
+            services.AddSingleton<IMonthlyAggregateLimitsStore, MonthlyAggregateLimitsStore>();
+            services.AddSingleton<IPaymentsStore, PaymentsStore>();
             BsonClassMap.RegisterClassMap<Fleet>(cm =>
             {
                 cm.AutoMap();
                 cm.MapIdMember(x => x.Id).SetIdGenerator(StringObjectIdGenerator.Instance);
             });
             BsonClassMap.RegisterClassMap<Car>(cm =>
+            {
+                cm.AutoMap();
+                cm.MapIdMember(x => x.Id).SetIdGenerator(StringObjectIdGenerator.Instance).SetIgnoreIfDefault(true);
+            });
+            BsonClassMap.RegisterClassMap<MonthlyAggregateLimit>(cm =>
+            {
+                cm.AutoMap();
+                cm.MapIdMember(x => x.Id).SetIdGenerator(StringObjectIdGenerator.Instance).SetIgnoreIfDefault(true);
+            });
+            BsonClassMap.RegisterClassMap<Payment>(cm =>
             {
                 cm.AutoMap();
                 cm.MapIdMember(x => x.Id).SetIdGenerator(StringObjectIdGenerator.Instance).SetIgnoreIfDefault(true);

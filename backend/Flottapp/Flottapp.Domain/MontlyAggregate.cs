@@ -10,7 +10,7 @@ namespace Flottapp.Domain
         public int Year { get; set; }
         public int Month { get; set; }
         public Money Limit { get; set; }
-        public bool Accepted { get; set; } = false;
+        public bool? Accepted { get; set; }
         public ICollection<Registration> Registrations { get; set; } = new List<Registration>();
     }
 }
