@@ -2,7 +2,7 @@
 
 namespace Flottapp.Infrastucture
 {
-    public class SerivceOccasionsVm
+    public class ServiceOccasionVm
     {
         public string Id { get; set; }
         public decimal Mileage { get; set; }

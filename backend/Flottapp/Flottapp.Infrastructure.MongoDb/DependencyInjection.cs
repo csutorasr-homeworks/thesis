@@ -3,6 +3,7 @@ using Flottapp.Application.Fleet;
 using Flottapp.Application.MonthlyAggregate;
 using Flottapp.Application.Payments;
 using Flottapp.Application.Registration;
+using Flottapp.Application.ServiceOccasions;
 using Flottapp.Application.ServiceRules;
 using Flottapp.Domain;
 using Flottapp.Infrastructure.MongoDb;
@@ -26,6 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IMonthlyAggregateLimitsStore, MonthlyAggregateLimitsStore>();
             services.AddSingleton<IPaymentsStore, PaymentsStore>();
             services.AddSingleton<IServiceRulesStore, ServiceRulesStore>();
+            services.AddSingleton<IServiceOccasionsStore, ServiceOccasionsStore>();
             BsonClassMap.RegisterClassMap<Fleet>(cm =>
             {
                 cm.AutoMap();
@@ -53,6 +55,11 @@ namespace Microsoft.Extensions.DependencyInjection
                 cm.AddKnownType(typeof(TimeServiceRule));
                 cm.AddKnownType(typeof(MileageServiceRule));
                 cm.SetIsRootClass(true);
+            });
+            BsonClassMap.RegisterClassMap<ServiceOccasion>(cm =>
+            {
+                cm.AutoMap();
+                cm.MapIdMember(x => x.Id).SetIdGenerator(StringObjectIdGenerator.Instance).SetIgnoreIfDefault(true);
             });
             return services;
         }

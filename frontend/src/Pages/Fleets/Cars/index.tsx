@@ -6,6 +6,7 @@ import CarEdit from './car-edit';
 import CarNew from './car-new';
 import CarSingle from './car-single';
 import CarRegistrationNew from './registrations/car-registration-new';
+import ServiceOccasionNew from './service-occasions/service-occasion-new';
 import CarMileageSerivceRuleNew from './service-rules/car-mileage-service-rule-new';
 import CarServiceRulesList from './service-rules/car-service-rules-list';
 import CarTimeSerivceRuleNew from './service-rules/car-time-service-rule-new';
@@ -24,6 +25,9 @@ export default function Cars(): JSX.Element {
           </Route>
           <Route path={`${path}/:carId/add-registration`}>
             <CarRegistrationNew />
+          </Route>
+          <Route path={`${path}/:carId/add-service-occasion`}>
+            <ServiceOccasionNew />
           </Route>
           {/* TODO: move to service-rules/index.tsx */}
           <Route path={`${path}/:carId/service-rules/new-time`}>

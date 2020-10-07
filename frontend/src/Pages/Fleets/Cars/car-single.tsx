@@ -12,6 +12,7 @@ import MonthlyAggregateList, {
 } from './monthly-aggregate/monthly-aggreage-list';
 import PaymentsList, { PaymentsListHandles } from './payments/payments-list';
 import CarRegistrationList from './registrations/car-registartion-list';
+import ServiceOccasionsList from './service-occasions/service-occasions-list';
 
 export default function CarSingle(): JSX.Element {
   const { fleetId, carId } = useParams<{ fleetId: string; carId: string }>();
@@ -115,6 +116,26 @@ export default function CarSingle(): JSX.Element {
           </Row>
           <div className="mb-3">
             <PaymentsList ref={paymentListRef} />
+          </div>
+          <Row className="mb-2">
+            <h2 className="col">Service occasions</h2>
+            <ButtonGroup
+              style={{ alignSelf: 'center' }}
+              className="col flex-grow-0"
+            >
+              <Button
+                onClick={() =>
+                  history.push(
+                    `/fleets/${fleetId}/cars/${carId}/add-service-occasion`
+                  )
+                }
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </Button>
+            </ButtonGroup>
+          </Row>
+          <div className="mb-3">
+            <ServiceOccasionsList />
           </div>
         </>
       )}
