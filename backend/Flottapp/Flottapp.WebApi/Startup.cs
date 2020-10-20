@@ -35,6 +35,20 @@ namespace Flottapp
             {
                 options.SchemaNameGenerator = new SchemaNameGenerator();
             });
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.Authority = "https://localhost:44336";
+                    options.Audience = "flottApi";
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuer = true,
+                        ValidIssuer = "https://localhost:44336",
+                        ClockSkew = TimeSpan.Zero,
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,11 +66,12 @@ namespace Flottapp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireAuthorization();
             });
         }
     }

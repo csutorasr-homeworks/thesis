@@ -7,6 +7,6 @@ export default function AuthIsLoggedIn({
 }: {
   children: (isLoggedIn: boolean) => ReactNode;
 }): JSX.Element {
-  const { state } = useContext(AuthContext);
-  return <>{children(state.isLoggedIn)}</>;
+  const { isLoggedIn } = useContext(AuthContext);
+  return <>{children(isLoggedIn)}</>;
 }

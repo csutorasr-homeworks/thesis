@@ -1,19 +1,26 @@
-import React, { useCallback, useContext } from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 import AuthIsLoggedIn from './AuthIsLoggedIn';
-import { AuthContext } from './AuthModule';
 
 export default function AuthToggle(): JSX.Element {
-  const context = useContext(AuthContext);
-  const toggleSignedIn = useCallback(() => {
-    context.setLoggedIn(!context.state.isLoggedIn);
-  }, [context]);
+  const { push } = useHistory();
   return (
-    <Button variant="primary" onClick={toggleSignedIn}>
+    <>
       <AuthIsLoggedIn>
-        {(isLoggedIn) => (isLoggedIn ? 'Kijelentkezés' : 'Bejelentkezés')}
+        {(isLoggedIn) =>
+          isLoggedIn ? (
+            <Button variant="primary" onClick={() => push('/account/logout')}>
+              Kijelentkezés
+            </Button>
+          ) : (
+            <Button variant="primary" onClick={() => push('/account/login')}>
+              Bejelentkezés
+            </Button>
+          )
+        }
       </AuthIsLoggedIn>
-    </Button>
+    </>
   );
 }

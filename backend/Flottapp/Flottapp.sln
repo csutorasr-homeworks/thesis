@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flottapp.Domain", "Flottapp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flottapp.Application", "Flottapp.Application\Flottapp.Application.csproj", "{4EE72990-2EAB-42E2-B380-A762C97D15C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flottapp.Infrastructure.MongoDb", "Flottapp.Infrastructure.MongoDb\Flottapp.Infrastructure.MongoDb.csproj", "{D8D5BF67-286C-4677-B24F-10C20B6231C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flottapp.Infrastructure.MongoDb", "Flottapp.Infrastructure.MongoDb\Flottapp.Infrastructure.MongoDb.csproj", "{D8D5BF67-286C-4677-B24F-10C20B6231C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThirdPartyAuth", "ThirdPartyAuth\ThirdPartyAuth.csproj", "{052B3DDF-B7BC-437A-B29F-589F380DAA06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D8D5BF67-286C-4677-B24F-10C20B6231C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8D5BF67-286C-4677-B24F-10C20B6231C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8D5BF67-286C-4677-B24F-10C20B6231C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{052B3DDF-B7BC-437A-B29F-589F380DAA06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{052B3DDF-B7BC-437A-B29F-589F380DAA06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{052B3DDF-B7BC-437A-B29F-589F380DAA06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{052B3DDF-B7BC-437A-B29F-589F380DAA06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

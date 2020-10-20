@@ -1,22 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.scss';
 
-import Axios from 'axios';
-import { configure } from 'axios-hooks';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-const axios = Axios.create({
-  baseURL: '/api',
-  headers: {
-    Accept: 'application/json',
-  },
-});
-
-configure({ axios, cache: false });
 
 ReactDOM.render(
   <React.StrictMode>
