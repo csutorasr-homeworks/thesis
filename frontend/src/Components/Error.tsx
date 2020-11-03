@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import React, { ReactElement } from 'react';
 import { Alert, Button } from 'react-bootstrap';
 
@@ -10,7 +11,7 @@ export default function ErrorComponent({
   children,
 }: {
   loading: boolean;
-  error: Error | undefined;
+  error: Error | AxiosError<unknown> | undefined;
   refetch?: () => void;
   children?: () => ReactElement;
 }): JSX.Element | null {
@@ -18,10 +19,15 @@ export default function ErrorComponent({
     return <Loading />;
   }
   if (error) {
+    let text = error.message;
+    const data = (error as AxiosError<unknown>).response?.data;
+    if (typeof data === 'string') {
+      text = data;
+    }
     return (
       <Alert variant="danger">
         <Alert.Heading>An error occoured</Alert.Heading>
-        {error.message}
+        {text}
         <hr />
         {refetch && <Button onClick={() => refetch()}>reload</Button>}
       </Alert>

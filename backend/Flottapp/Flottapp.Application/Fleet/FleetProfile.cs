@@ -8,7 +8,8 @@ namespace Flottapp.Application.Fleet
         public FleetProfile()
         {
             CreateMap<Domain.Fleet, FleetRowVm>();
-            CreateMap<Domain.Fleet, FleetVm>();
+            CreateMap<Domain.Fleet, FleetVm>()
+                .ForMember(x => x.Users, x => x.Ignore());
         }
     }
 }

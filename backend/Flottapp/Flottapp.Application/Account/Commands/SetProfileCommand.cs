@@ -1,4 +1,5 @@
-﻿using Flottapp.Domain;
+﻿using AutoMapper;
+using Flottapp.Domain;
 using Flottapp.Model;
 using MediatR;
 using System;
@@ -16,18 +17,25 @@ namespace Flottapp.Application.Account
         class SetProfileCommandHandler : IRequestHandler<SetProfileCommand>
         {
             private readonly IUserProfileStore accountStore;
+            private readonly IMapper mapper;
+            private readonly IMediator mediator;
 
-            public SetProfileCommandHandler(IUserProfileStore accountStore)
+            public SetProfileCommandHandler(IUserProfileStore accountStore, IMapper mapper, IMediator mediator)
             {
                 this.accountStore = accountStore;
+                this.mapper = mapper;
+                this.mediator = mediator;
             }
             public async Task<Unit> Handle(SetProfileCommand request, CancellationToken cancellationToken)
             {
-                await accountStore.SetProfile(new UserProfile
+                var userProfile = new UserProfile
                 {
                     AuthorizationData = request.AuthorizationData,
                     Name = request.Data.Name,
-                }, cancellationToken);
+                };
+                await accountStore.SetProfile(userProfile, cancellationToken);
+                var @event = mapper.Map<UserProfileChangedEvent>(userProfile);
+                await mediator.Publish(@event, cancellationToken: cancellationToken);
                 return Unit.Value;
             }
         }

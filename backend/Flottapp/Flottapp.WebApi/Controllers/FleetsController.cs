@@ -1,4 +1,6 @@
-﻿using Flottapp.Infrastucture;
+﻿using Flottapp.Application.Account.Exceptions;
+using Flottapp.Application.Fleet.Exceptions;
+using Flottapp.Infrastucture;
 using Flottapp.Infrastucture.Commands;
 using Flottapp.Infrastucture.Queries;
 using MediatR;
@@ -46,9 +48,21 @@ namespace Flottapp.Controllers
             await mediator.Send(new DeleteFleetCommand { Id = id }, cancellationToken);
         }
         [HttpPost("{id:length(24)}/users")]
-        public async Task AddUser(string id, AddUserToFleetCommand.Dto dto, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddUser(string id, AddUserToFleetCommand.Dto dto, CancellationToken cancellationToken)
         {
-            await mediator.Send(new AddUserToFleetCommand { Id = id, Data = dto }, cancellationToken);
+            try
+            {
+                await mediator.Send(new AddUserToFleetCommand { Id = id, Data = dto }, cancellationToken);
+                return Ok();
+            }
+            catch (UserProfileNotFoundException)
+            {
+                return NotFound("User profile not found.");
+            }
+            catch (FleetUserAlreadyAddedException)
+            {
+                return Conflict("User has been already added to the fleet.");
+            }
         }
         [HttpDelete("{id:length(24)}/users/{userId}")]
         public async Task RemoveUser(string id, string userId, CancellationToken cancellationToken)

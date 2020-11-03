@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Flottapp.Application.Account;
 using Flottapp.Application.Fleet;
 using MediatR;
 using System.Collections.Generic;
@@ -15,16 +16,20 @@ namespace Flottapp.Infrastucture.Queries
         {
             private readonly IFleetStore fleetStore;
             private readonly IMapper mapper;
+            private readonly IUserProfileStore userProfileStore;
 
-            public Handler(IFleetStore fleetStore, IMapper mapper)
+            public Handler(IFleetStore fleetStore, IMapper mapper, IUserProfileStore userProfileStore)
             {
                 this.fleetStore = fleetStore;
                 this.mapper = mapper;
+                this.userProfileStore = userProfileStore;
             }
             public async Task<FleetVm> Handle(GetFleetQuery request, CancellationToken cancellationToken)
             {
                 var data = await fleetStore.GetFleet(request.Id, cancellationToken);
-                return mapper.Map<FleetVm>(data);
+                var viewModel = mapper.Map<FleetVm>(data);
+                viewModel.Users = await userProfileStore.ListNameByAuthorizationData(data.Users, cancellationToken);
+                return viewModel;
             }
         }
     }

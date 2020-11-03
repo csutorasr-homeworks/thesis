@@ -2,6 +2,7 @@
 using Flottapp.Application.Fleet;
 using Flottapp.Application.Fleet.Exceptions;
 using Flottapp.Domain;
+using Flottapp.Model;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
@@ -29,10 +30,10 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
             return car.Id;
         }
 
-        public async Task AddUserToFleet(string id, string userId, CancellationToken cancellationToken)
+        public async Task AddUserToFleet(string id, AuthorizationData authorizationData, CancellationToken cancellationToken)
         {
             var result = await _collection.UpdateOneAsync(x => x.Id == id,
-                                                    Builders<Domain.Fleet>.Update.AddToSet(x => x.Users, userId),
+                                                    Builders<Domain.Fleet>.Update.AddToSet(x => x.Users, authorizationData),
                                                     cancellationToken: cancellationToken);
             if (result.MatchedCount == 0)
             {
@@ -44,12 +45,13 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
             }
         }
 
-        public async Task<string> CreateFleet(string name, CancellationToken cancellationToken)
+        public async Task<string> CreateFleet(string name, AuthorizationData authorizationData, CancellationToken cancellationToken)
         {
             var fleet = new Domain.Fleet
             {
-                Name = name
+                Name = name,
             };
+            fleet.Users.Add(authorizationData);
             await _collection.InsertOneAsync(fleet, cancellationToken: cancellationToken);
             return fleet.Id;
         }
@@ -117,10 +119,10 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
             }
         }
 
-        public async Task RemoveUserFromFleet(string id, string userId, CancellationToken cancellationToken)
+        public async Task RemoveUserFromFleet(string id, AuthorizationData authorizationData, CancellationToken cancellationToken)
         {
             var result = await _collection.UpdateOneAsync(x => x.Id == id,
-                                                    Builders<Domain.Fleet>.Update.Pull(x => x.Users, userId),
+                                                    Builders<Domain.Fleet>.Update.Pull(x => x.Users, authorizationData),
                                                     cancellationToken: cancellationToken);
             if (result.MatchedCount == 0)
             {

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Flottapp.Model;
 
 namespace Flottapp.Domain
 {
@@ -8,6 +8,6 @@ namespace Flottapp.Domain
         public string Id { get; set; }
         public string Name { get; set; }
         public ICollection<Car> Cars { get; private set; } = new List<Car>();
-        public ICollection<string> Users { get; private set; } = new List<string>();
+        public ICollection<AuthorizationData> Users { get; private set; } = new List<AuthorizationData>();
     }
 }

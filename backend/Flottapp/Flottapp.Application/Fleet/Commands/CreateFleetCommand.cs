@@ -21,7 +21,7 @@ namespace Flottapp.Infrastucture.Commands
             }
             public Task<string> Handle(CreateFleetCommand request, CancellationToken cancellationToken)
             {
-                return fleetStore.CreateFleet(request.Name, cancellationToken);
+                return fleetStore.CreateFleet(request.Name, request.AuthorizationData, cancellationToken);
             }
         }
     }
