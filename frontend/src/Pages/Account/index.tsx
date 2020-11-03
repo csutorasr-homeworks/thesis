@@ -5,6 +5,7 @@ import AuthGuard from '../../auth/AuthGuard';
 import NotFound from '../NotFound';
 import Login from './login';
 import Logout from './logout';
+import Profile from './profile';
 import SignInOIDC from './signin-oidc';
 import SignOutOIDC from './signout-oidc';
 
@@ -18,6 +19,11 @@ export default function Account(): JSX.Element {
       <Route path={`${path}/logout`}>
         <AuthGuard>
           <Logout />
+        </AuthGuard>
+      </Route>
+      <Route path={`${path}/profile`}>
+        <AuthGuard>
+          <Profile />
         </AuthGuard>
       </Route>
       <Route path={`${path}/signin-oidc`}>

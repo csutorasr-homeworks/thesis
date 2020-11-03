@@ -32,6 +32,9 @@ function App() {
               <Nav.Link as={Link} to="/fleets/new">
                 New fleet
               </Nav.Link>
+              <Nav.Link as={Link} to="/account/profile">
+                Profile
+              </Nav.Link>
             </Nav>
             <Nav>
               <AuthToggle />

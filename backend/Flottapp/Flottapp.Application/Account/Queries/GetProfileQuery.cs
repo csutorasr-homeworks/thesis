@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Flottapp.Application.Account
 {
-    public class GetProfileQuery : IRequest<ProfileVm>
+    public class GetProfileQuery : IRequest<ProfileVm>, IAuthorizableRequest
     {
         public AuthorizationData AuthorizationData { get; set; }
         class SetProfileCommandHandler : IRequestHandler<GetProfileQuery, ProfileVm>

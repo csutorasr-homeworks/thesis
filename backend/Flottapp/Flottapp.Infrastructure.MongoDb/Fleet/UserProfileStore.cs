@@ -5,6 +5,7 @@ using Flottapp.Application.Account;
 using Flottapp.Application.Account.Exceptions;
 using Flottapp.Domain;
 using Flottapp.Model;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Flottapp.Infrastructure.MongoDb.Fleet
@@ -25,6 +26,7 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
         {
             await _collection.UpdateOneAsync(x => x.AuthorizationData.Authority == userProfile.AuthorizationData.Authority && x.AuthorizationData.Id == userProfile.AuthorizationData.Id,
                 Builders<UserProfile>.Update.Set(x => x.Name, userProfile.Name)
+                                            .SetOnInsert(x => x.Id, ObjectId.GenerateNewId().ToString())
                                             .SetOnInsert(x => x.AuthorizationData.Authority, userProfile.AuthorizationData.Authority)
                                             .SetOnInsert(x => x.AuthorizationData.Id, userProfile.AuthorizationData.Id),
                 new UpdateOptions
