@@ -13,5 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Flottapp.Domain\Flottapp.Domain.csproj" />
+    <ProjectReference Include="..\Flottapp.Model\Flottapp.Model.csproj" />
   </ItemGroup>
 </Project>

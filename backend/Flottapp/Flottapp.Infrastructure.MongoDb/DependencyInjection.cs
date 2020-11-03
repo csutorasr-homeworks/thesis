@@ -1,4 +1,5 @@
-﻿using Flottapp.Application.Car;
+﻿using Flottapp.Application.Account;
+using Flottapp.Application.Car;
 using Flottapp.Application.Fleet;
 using Flottapp.Application.MonthlyAggregate;
 using Flottapp.Application.Payments;
@@ -28,6 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IPaymentsStore, PaymentsStore>();
             services.AddSingleton<IServiceRulesStore, ServiceRulesStore>();
             services.AddSingleton<IServiceOccasionsStore, ServiceOccasionsStore>();
+            services.AddSingleton<IUserProfileStore, UserProfileStore>();
             BsonClassMap.RegisterClassMap<Fleet>(cm =>
             {
                 cm.AutoMap();
@@ -57,6 +59,11 @@ namespace Microsoft.Extensions.DependencyInjection
                 cm.SetIsRootClass(true);
             });
             BsonClassMap.RegisterClassMap<ServiceOccasion>(cm =>
+            {
+                cm.AutoMap();
+                cm.MapIdMember(x => x.Id).SetIdGenerator(StringObjectIdGenerator.Instance).SetIgnoreIfDefault(true);
+            });
+            BsonClassMap.RegisterClassMap<UserProfile>(cm =>
             {
                 cm.AutoMap();
                 cm.MapIdMember(x => x.Id).SetIdGenerator(StringObjectIdGenerator.Instance).SetIgnoreIfDefault(true);

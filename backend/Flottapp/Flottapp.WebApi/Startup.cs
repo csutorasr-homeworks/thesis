@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Flottapp.WebApi;
+using Flottapp.WebApi.Pipelines;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,8 @@ namespace Flottapp
             {
                 options.SchemaNameGenerator = new SchemaNameGenerator();
             });
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(AuthorizationDataPipeline<,>));
+            services.AddHttpContextAccessor();
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
