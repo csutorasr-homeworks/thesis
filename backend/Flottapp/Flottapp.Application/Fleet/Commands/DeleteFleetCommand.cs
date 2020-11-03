@@ -1,4 +1,5 @@
 ﻿using Flottapp.Application.Fleet;
+using Flottapp.Model;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace Flottapp.Infrastucture.Commands
 {
-    public class DeleteFleetCommand : IRequest
+    public class DeleteFleetCommand : IRequest, IAuthorizableRequest
     {
         public string Id { get; set; }
+        public AuthorizationData AuthorizationData { get; set; }
         public class Handler : IRequestHandler<DeleteFleetCommand>
         {
             private readonly IFleetStore fleetStore;
@@ -21,7 +23,7 @@ namespace Flottapp.Infrastucture.Commands
             }
             public async Task<Unit> Handle(DeleteFleetCommand request, CancellationToken cancellationToken)
             {
-                await fleetStore.DeleteFleet(request.Id, cancellationToken);
+                await fleetStore.DeleteFleet(request.Id, request.AuthorizationData, cancellationToken);
                 return Unit.Value;
             }
         }

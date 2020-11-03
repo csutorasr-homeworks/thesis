@@ -30,10 +30,10 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
             return car.Id;
         }
 
-        public async Task AddUserToFleet(string id, AuthorizationData authorizationData, CancellationToken cancellationToken)
+        public async Task AddUserToFleet(string id, AuthorizationData authorizationDataOfAddedUser, AuthorizationData authorizationData, CancellationToken cancellationToken)
         {
-            var result = await _collection.UpdateOneAsync(x => x.Id == id,
-                                                    Builders<Domain.Fleet>.Update.AddToSet(x => x.Users, authorizationData),
+            var result = await _collection.UpdateOneAsync(x => x.Id == id && x.Users.Contains(authorizationData),
+                                                    Builders<Domain.Fleet>.Update.AddToSet(x => x.Users, authorizationDataOfAddedUser),
                                                     cancellationToken: cancellationToken);
             if (result.MatchedCount == 0)
             {
@@ -61,9 +61,9 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
             var result = await _collection.UpdateOneAsync(x => x.Id == fleetId, Builders<Domain.Fleet>.Update.Set("Cars.$[elem].Activated", false), new UpdateOptions { ArrayFilters = new[] { new BsonDocumentArrayFilterDefinition<BsonDocument>(new BsonDocument("elem._id", carId)) } }, cancellationToken);
         }
 
-        public async Task DeleteFleet(string id, CancellationToken cancellationToken)
+        public async Task DeleteFleet(string id, AuthorizationData authorizationData, CancellationToken cancellationToken)
         {
-            var result = await _collection.DeleteOneAsync(x => x.Id == id, cancellationToken: cancellationToken);
+            var result = await _collection.DeleteOneAsync(x => x.Id == id && x.Users.Contains(authorizationData), cancellationToken: cancellationToken);
             if (result.DeletedCount == 0)
             {
                 throw new FleetNotFoundException();
@@ -77,15 +77,15 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
             return fleet.Cars.FirstOrDefault(x => x.Id == carId);
         }
 
-        public async Task<Domain.Fleet> GetFleet(string id, CancellationToken cancellationToken)
+        public async Task<Domain.Fleet> GetFleet(string id, AuthorizationData authorizationData, CancellationToken cancellationToken)
         {
-            var cursor = await _collection.FindAsync(x => x.Id == id, cancellationToken: cancellationToken);
+            var cursor = await _collection.FindAsync(x => x.Id == id && x.Users.Contains(authorizationData), cancellationToken: cancellationToken);
             return await cursor.FirstOrDefaultAsync() ?? throw new FleetNotFoundException();
         }
 
-        public async Task<List<Domain.Fleet>> GetFleets(CancellationToken cancellationToken)
+        public async Task<List<Domain.Fleet>> GetFleets(AuthorizationData authorizationData, CancellationToken cancellationToken)
         {
-            var cursor = await _collection.FindAsync(Builders<Domain.Fleet>.Filter.Empty, cancellationToken: cancellationToken);
+            var cursor = await _collection.FindAsync(x => x.Users.Contains(authorizationData), cancellationToken: cancellationToken);
             return await cursor.ToListAsync(cancellationToken);
         }
 
@@ -119,10 +119,10 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
             }
         }
 
-        public async Task RemoveUserFromFleet(string id, AuthorizationData authorizationData, CancellationToken cancellationToken)
+        public async Task RemoveUserFromFleet(string id, AuthorizationData authorizationDataOfRemovedUser, AuthorizationData authorizationData, CancellationToken cancellationToken)
         {
-            var result = await _collection.UpdateOneAsync(x => x.Id == id,
-                                                    Builders<Domain.Fleet>.Update.Pull(x => x.Users, authorizationData),
+            var result = await _collection.UpdateOneAsync(x => x.Id == id && x.Users.Contains(authorizationData),
+                                                    Builders<Domain.Fleet>.Update.Pull(x => x.Users, authorizationDataOfRemovedUser),
                                                     cancellationToken: cancellationToken);
             if (result.MatchedCount == 0)
             {

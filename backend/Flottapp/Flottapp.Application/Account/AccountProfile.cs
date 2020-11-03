@@ -11,6 +11,7 @@ namespace Flottapp.Application.Account
         public AccountProfile()
         {
             CreateMap<UserProfile, ProfileVm>();
+            CreateMap<UserProfile, UserProfileChangedEvent>();
         }
     }
 }

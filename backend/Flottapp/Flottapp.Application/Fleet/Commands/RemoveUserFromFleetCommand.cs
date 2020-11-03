@@ -1,5 +1,6 @@
 ﻿using Flottapp.Application.Account;
 using Flottapp.Application.Fleet;
+using Flottapp.Model;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace Flottapp.Infrastucture.Commands
 {
-    public class RemoveUserFromFleetCommand : IRequest
+    public class RemoveUserFromFleetCommand : IRequest, IAuthorizableRequest
     {
         public string Id { get; set; }
         public string UserId { get; set; }
+        public AuthorizationData AuthorizationData { get; set; }
         public class Handler : IRequestHandler<RemoveUserFromFleetCommand>
         {
             private readonly IFleetStore fleetStore;
@@ -25,8 +27,8 @@ namespace Flottapp.Infrastucture.Commands
             }
             public async Task<Unit> Handle(RemoveUserFromFleetCommand request, CancellationToken cancellationToken)
             {
-                var authorizationData = await userProfileStore.GetAuthorizationDataByName(request.UserId, cancellationToken);
-                await fleetStore.RemoveUserFromFleet(request.Id, authorizationData, cancellationToken);
+                var authorizationDataOfRemovedUser = await userProfileStore.GetAuthorizationDataByName(request.UserId, cancellationToken);
+                await fleetStore.RemoveUserFromFleet(request.Id, authorizationDataOfRemovedUser, request.AuthorizationData, cancellationToken);
                 return Unit.Value;
             }
         }

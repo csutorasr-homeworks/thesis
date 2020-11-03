@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Flottapp.Application.Fleet;
+using Flottapp.Model;
 using MediatR;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace Flottapp.Infrastucture.Queries
 {
-    public class ListFleetsQuery : IRequest<IEnumerable<FleetRowVm>>
+    public class ListFleetsQuery : IRequest<IEnumerable<FleetRowVm>>, IAuthorizableRequest
     {
+        public AuthorizationData AuthorizationData { get; set; }
+
         public class Handler : IRequestHandler<ListFleetsQuery, IEnumerable<FleetRowVm>>
         {
             private readonly IFleetStore fleetStore;
@@ -22,7 +25,7 @@ namespace Flottapp.Infrastucture.Queries
             }
             public async Task<IEnumerable<FleetRowVm>> Handle(ListFleetsQuery request, CancellationToken cancellationToken)
             {
-                var data = await fleetStore.GetFleets(cancellationToken);
+                var data = await fleetStore.GetFleets(request.AuthorizationData, cancellationToken);
                 return data.Select(x => mapper.Map<FleetRowVm>(x));
             }
         }

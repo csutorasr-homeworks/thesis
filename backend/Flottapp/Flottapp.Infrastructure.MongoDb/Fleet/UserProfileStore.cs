@@ -15,6 +15,7 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
     {
         public UserProfileStore(IDatabaseSettings databaseSettings) : base(databaseSettings)
         {
+            _collection.Indexes.CreateOne(new CreateIndexModel<UserProfile>(Builders<UserProfile>.IndexKeys.Ascending(x => x.Name), new CreateIndexOptions { Unique = true }));
         }
 
         public async Task<AuthorizationData> GetAuthorizationDataByName(string name, CancellationToken cancellationToken)
