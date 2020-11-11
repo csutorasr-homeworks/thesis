@@ -27,9 +27,13 @@ namespace Flottapp.WebApi.Pipelines
                     var claims = httpContextAccessor.HttpContext.User.Claims;
                     authorizableRequest.AuthorizationData = new AuthorizationData
                     {
-                        Authority = claims.FirstOrDefault(x => x.Type == "iss")?.Value,
-                        Id = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
+                        Authority = claims.FirstOrDefault(x => x.Type == "iss")?.Value ?? throw new UnauthorizedAccessException(),
+                        Id = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value ?? throw new UnauthorizedAccessException(),
                     };
+                }
+                else
+                {
+                    throw new UnauthorizedAccessException();
                 }
             }
             return await next();
