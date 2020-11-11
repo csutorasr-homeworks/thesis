@@ -1,7 +1,7 @@
 import { faCogs, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAxios from 'axios-hooks';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Button, ButtonGroup, Row } from 'react-bootstrap';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 
@@ -15,6 +15,9 @@ import CarRegistrationList from './registrations/car-registartion-list';
 import ServiceOccasionsList from './service-occasions/service-occasions-list';
 
 export default function CarSingle(): JSX.Element {
+  const [activeTab, setActiveTab] = useState<
+    'registrations' | 'aggregates' | 'payments' | 'service'
+  >('registrations');
   const { fleetId, carId } = useParams<{ fleetId: string; carId: string }>();
   const history = useHistory();
   const [{ data: car, loading, error }, refetch] = useAxios<CarRowVm>(
@@ -82,7 +85,39 @@ export default function CarSingle(): JSX.Element {
               </Button>
             </ButtonGroup>
           </Row>
-          <Row className="mb-2">
+          <Row className="d-block d-sm-none justify-content-center">
+            <ButtonGroup>
+              <Button
+                active={activeTab === 'registrations'}
+                onClick={() => setActiveTab('registrations')}
+              >
+                Regs
+              </Button>
+              <Button
+                active={activeTab === 'aggregates'}
+                onClick={() => setActiveTab('aggregates')}
+              >
+                Aggregates
+              </Button>
+              <Button
+                active={activeTab === 'payments'}
+                onClick={() => setActiveTab('payments')}
+              >
+                Payments
+              </Button>
+              <Button
+                active={activeTab === 'service'}
+                onClick={() => setActiveTab('service')}
+              >
+                Service
+              </Button>
+            </ButtonGroup>
+          </Row>
+          <Row
+            className={`mb-2 d-sm-flex d-${
+              (activeTab === 'registrations' && 'flex') || 'none'
+            }`}
+          >
             <h2 className="col">Registrations</h2>
             <ButtonGroup
               style={{ alignSelf: 'center' }}
@@ -99,25 +134,49 @@ export default function CarSingle(): JSX.Element {
               </Button>
             </ButtonGroup>
           </Row>
-          <div className="mb-3">
+          <div
+            className={`mb-3 d-sm-flex d-${
+              (activeTab === 'registrations' && 'flex') || 'none'
+            }`}
+          >
             <CarRegistrationList registrationRemoved={registrationRemoved} />
           </div>
-          <Row className="mb-2">
+          <Row
+            className={`mb-2 d-sm-flex d-${
+              (activeTab === 'aggregates' && 'flex') || 'none'
+            }`}
+          >
             <h2 className="col">Monthly aggregates</h2>
           </Row>
-          <div className="mb-3">
+          <div
+            className={`mb-3 d-sm-flex d-${
+              (activeTab === 'aggregates' && 'flex') || 'none'
+            }`}
+          >
             <MonthlyAggregateList
               ref={aggregateListRef}
               monthlyAggregateAccepted={monthlyAggregateAccepted}
             />
           </div>
-          <Row className="mb-2">
+          <Row
+            className={`mb-2 d-sm-flex d-${
+              (activeTab === 'payments' && 'flex') || 'none'
+            }`}
+          >
             <h2 className="col">Payments</h2>
           </Row>
-          <div className="mb-3">
+          <div
+            className={`mb-3 d-sm-flex d-${
+              (activeTab === 'payments' && 'flex') || 'none'
+            }`}
+          >
             <PaymentsList ref={paymentListRef} />
           </div>
-          <Row className="mb-2">
+          <Row
+            className={`mb-2 d-sm-flex d-${
+              (activeTab === 'service' && 'flex') || 'none'
+            }`}
+          >
             <h2 className="col">Service occasions</h2>
             <ButtonGroup
               style={{ alignSelf: 'center' }}
@@ -134,7 +193,11 @@ export default function CarSingle(): JSX.Element {
               </Button>
             </ButtonGroup>
           </Row>
-          <div className="mb-3">
+          <div
+            className={`mb-3 d-sm-flex d-${
+              (activeTab === 'service' && 'flex') || 'none'
+            }`}
+          >
             <ServiceOccasionsList />
           </div>
         </>
