@@ -4,6 +4,8 @@ import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { Redirect, useParams } from 'react-router-dom';
 
+import LocationProvider from './location-provider';
+
 interface BackendData {
   time: Date;
   mileage: number;
@@ -22,7 +24,7 @@ interface FormData {
   time: Date;
   mileage: number;
   locationlongitude: number;
-  locationlangitude: number;
+  locationlatitude: number;
   refuelQuantity: number;
   pricecurrency: number;
   pricevalue: number;
@@ -30,7 +32,7 @@ interface FormData {
 
 export default function CarRegistrationNew(): JSX.Element {
   const { fleetId, carId } = useParams<{ fleetId: string; carId: string }>();
-  const { handleSubmit, control } = useForm<FormData>();
+  const { handleSubmit, control, setValue } = useForm<FormData>();
   const [{ data: createdId, loading }, send] = useAxios<string>(
     {
       method: 'POST',
@@ -45,7 +47,7 @@ export default function CarRegistrationNew(): JSX.Element {
       send({
         data: {
           location: {
-            langitude: +data.locationlangitude,
+            langitude: +data.locationlatitude,
             longitude: +data.locationlongitude,
           },
           mileage: +data.mileage,
@@ -66,12 +68,22 @@ export default function CarRegistrationNew(): JSX.Element {
   return (
     <Form noValidate validated onSubmit={handleSubmit(onSubmit)}>
       <div className="row">
-        <Form.Group controlId="locationlangitude" className="col-lg-6">
+        <div className="col-lg-2 col-md-6 col-12">
+          <LocationProvider
+            setLocationData={({ longitude, latitude }) => {
+              setValue('locationlatitude', latitude);
+              setValue('locationlongitude', longitude);
+            }}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <Form.Group controlId="locationlatitude" className="col-lg-6">
           <Form.Label>Langitude</Form.Label>
           <Controller
             as={
               <Form.Control
-                name="locationlangitude"
+                name="locationlatitude"
                 type="number"
                 placeholder="Enter langitude"
                 required
@@ -79,7 +91,7 @@ export default function CarRegistrationNew(): JSX.Element {
             }
             control={control}
             rules={{ required: true }}
-            name="locationlangitude"
+            name="locationlatitude"
             defaultValue=""
           />
           <Form.Control.Feedback type="invalid">
