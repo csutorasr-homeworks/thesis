@@ -5,6 +5,6 @@ import NotFound from '.';
 
 test('renders 404 text', () => {
   const { getByText } = render(<NotFound />);
-  const linkElement = getByText(/az oldal nem található/i);
+  const linkElement = getByText(/page is not found/i);
   expect(linkElement).toBeInTheDocument();
 });

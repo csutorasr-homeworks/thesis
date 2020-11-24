@@ -11,7 +11,6 @@ test('callbacks false if not logged in', () => {
       <AuthContext.Provider
         value={{
           isLoggedIn: false,
-          setTokenData: () => {},
           createUserManagerForAccount: () => {},
         }}
       >
@@ -30,7 +29,6 @@ test('callbacks true if logged in', () => {
       <AuthContext.Provider
         value={{
           isLoggedIn: true,
-          setTokenData: () => {},
           createUserManagerForAccount: () => {},
         }}
       >

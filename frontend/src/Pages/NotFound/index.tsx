@@ -13,7 +13,7 @@ function NotFound(): JSX.Element {
       </h1>
       <div className="inline-block align-middle">
         <h2 className="font-weight-normal lead" id="desc">
-          Az oldal nem található
+          Page is not found
         </h2>
       </div>
     </div>
