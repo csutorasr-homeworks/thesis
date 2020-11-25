@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
 
-context('Login', () => {
+context('Fleet', () => {
   beforeEach(() => {
     cy.login();
   });
-  it('should show fleets', () => {
+  it('should add new fleet', () => {
     cy.contains('Add new fleet').click();
     cy.get('input').eq(0).type('New fleet name{enter}');
     cy.url().should('not.eq', Cypress.config().baseUrl + '/fleets/new');
