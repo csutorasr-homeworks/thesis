@@ -12,11 +12,11 @@ export default function AuthToggle(): JSX.Element {
         {(isLoggedIn) =>
           isLoggedIn ? (
             <Button variant="primary" onClick={() => push('/account/logout')}>
-              Kijelentkezés
+              Log out
             </Button>
           ) : (
             <Button variant="primary" onClick={() => push('/account/login')}>
-              Bejelentkezés
+              Log in
             </Button>
           )
         }

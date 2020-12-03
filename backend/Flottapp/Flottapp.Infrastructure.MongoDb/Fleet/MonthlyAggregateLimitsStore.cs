@@ -21,6 +21,7 @@ namespace Flottapp.Infrastructure.MongoDb.Fleet
                 x => x.FleetId == fleetId && x.CarId == carId,
                 Builders<MonthlyAggregateLimit>.Update
                     .Set(x => x.Limit, limit)
+                    .SetOnInsert(x => x.Id, ObjectId.GenerateNewId().ToString())
                     .SetOnInsert(x => x.CarId, carId)
                     .SetOnInsert(x => x.FleetId, fleetId),
                 new UpdateOptions

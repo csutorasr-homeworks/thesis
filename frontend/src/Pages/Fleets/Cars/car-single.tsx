@@ -135,8 +135,8 @@ export default function CarSingle(): JSX.Element {
             </ButtonGroup>
           </Row>
           <div
-            className={`mb-3 d-sm-flex d-${
-              (activeTab === 'registrations' && 'flex') || 'none'
+            className={`mb-3 d-sm-block d-${
+              (activeTab === 'registrations' && 'block') || 'none'
             }`}
           >
             <CarRegistrationList registrationRemoved={registrationRemoved} />
@@ -149,8 +149,8 @@ export default function CarSingle(): JSX.Element {
             <h2 className="col">Monthly aggregates</h2>
           </Row>
           <div
-            className={`mb-3 d-sm-flex d-${
-              (activeTab === 'aggregates' && 'flex') || 'none'
+            className={`mb-3 d-sm-block d-${
+              (activeTab === 'aggregates' && 'block') || 'none'
             }`}
           >
             <MonthlyAggregateList
@@ -166,8 +166,8 @@ export default function CarSingle(): JSX.Element {
             <h2 className="col">Payments</h2>
           </Row>
           <div
-            className={`mb-3 d-sm-flex d-${
-              (activeTab === 'payments' && 'flex') || 'none'
+            className={`mb-3 d-sm-block d-${
+              (activeTab === 'payments' && 'block') || 'none'
             }`}
           >
             <PaymentsList ref={paymentListRef} />
@@ -194,8 +194,8 @@ export default function CarSingle(): JSX.Element {
             </ButtonGroup>
           </Row>
           <div
-            className={`mb-3 d-sm-flex d-${
-              (activeTab === 'service' && 'flex') || 'none'
+            className={`mb-3 d-sm-block d-${
+              (activeTab === 'service' && 'block') || 'none'
             }`}
           >
             <ServiceOccasionsList />
