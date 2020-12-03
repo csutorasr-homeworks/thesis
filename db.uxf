@@ -4,12 +4,12 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>730</x>
-      <y>60</y>
+      <x>490</x>
+      <y>150</y>
       <w>110</w>
       <h>100</h>
     </coordinates>
-    <panel_attributes>Felhasználó
+    <panel_attributes>Profil
 --
 id
 authority
@@ -19,8 +19,8 @@ felhasználónév</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1030</x>
-      <y>290</y>
+      <x>870</x>
+      <y>170</y>
       <w>110</w>
       <h>70</h>
     </coordinates>
@@ -33,21 +33,21 @@ név</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1070</x>
-      <y>150</y>
-      <w>110</w>
-      <h>160</h>
+      <x>720</x>
+      <y>190</y>
+      <w>170</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m2=*
 r2=flottakezelők</panel_attributes>
-    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>730</x>
-      <y>280</y>
+      <x>1100</x>
+      <y>170</y>
       <w>110</w>
       <h>80</h>
     </coordinates>
@@ -61,15 +61,15 @@ hevi keret</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>830</x>
-      <y>310</y>
-      <w>220</w>
+      <x>970</x>
+      <y>190</y>
+      <w>150</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 r2=autók
 m2=*</panel_attributes>
-    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -150,8 +150,8 @@ szervíz típusa</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>890</x>
-      <y>510</y>
+      <x>940</x>
+      <y>400</y>
       <w>100</w>
       <h>80</h>
     </coordinates>
@@ -165,8 +165,8 @@ autóId</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>970</x>
-      <y>640</y>
+      <x>1020</x>
+      <y>530</y>
       <w>140</w>
       <h>50</h>
     </coordinates>
@@ -178,8 +178,8 @@ gyakoriság</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>960</x>
-      <y>580</y>
+      <x>1010</x>
+      <y>470</y>
       <w>100</w>
       <h>80</h>
     </coordinates>
@@ -189,8 +189,8 @@ gyakoriság</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>830</x>
-      <y>580</y>
+      <x>880</x>
+      <y>470</y>
       <w>100</w>
       <h>80</h>
     </coordinates>
@@ -200,8 +200,8 @@ gyakoriság</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>770</x>
-      <y>640</y>
+      <x>820</x>
+      <y>530</y>
       <w>140</w>
       <h>50</h>
     </coordinates>
@@ -213,8 +213,8 @@ km</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1030</x>
-      <y>60</y>
+      <x>620</x>
+      <y>150</y>
       <w>110</w>
       <h>100</h>
     </coordinates>
@@ -227,10 +227,10 @@ authority</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>700</x>
-      <y>10</y>
-      <w>480</w>
-      <h>380</h>
+      <x>470</x>
+      <y>100</y>
+      <w>760</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>symbol=component
 Flotta</panel_attributes>
@@ -291,8 +291,8 @@ Bejegyzés</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>700</x>
-      <y>420</y>
+      <x>750</x>
+      <y>310</y>
       <w>480</w>
       <h>300</h>
     </coordinates>

@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>930</x>
-      <y>90</y>
+      <x>1200</x>
+      <y>370</y>
       <w>110</w>
       <h>100</h>
     </coordinates>
@@ -21,7 +21,7 @@ jelszó</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>930</x>
-      <y>320</y>
+      <y>370</y>
       <w>110</w>
       <h>70</h>
     </coordinates>
@@ -34,15 +34,15 @@ név</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>970</x>
-      <y>180</y>
-      <w>110</w>
-      <h>160</h>
+      <x>1030</x>
+      <y>370</y>
+      <w>190</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=*
 r2=flottakezelők</panel_attributes>
-    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -63,14 +63,13 @@ hevi keret</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>970</x>
-      <y>380</y>
-      <w>60</w>
-      <h>160</h>
+      <y>430</y>
+      <w>30</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-r2=autók
 m2=*</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -78,9 +77,10 @@ m2=*</panel_attributes>
       <x>1030</x>
       <y>520</y>
       <w>190</w>
-      <h>30</h>
+      <h>40</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=*</panel_attributes>
     <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
   </element>
   <element>
@@ -104,7 +104,7 @@ mennyiség
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1140</x>
+      <x>1120</x>
       <y>670</y>
       <w>130</w>
       <h>130</h>
@@ -123,11 +123,12 @@ jóváhagyva</panel_attributes>
     <coordinates>
       <x>1030</x>
       <y>590</y>
-      <w>130</w>
-      <h>130</h>
+      <w>110</w>
+      <h>110</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;110.0;110.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -147,13 +148,13 @@ befizetve</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1260</x>
+      <x>1240</x>
       <y>730</y>
-      <w>90</w>
+      <w>110</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -179,7 +180,8 @@ szervíz típusa</panel_attributes>
       <w>30</w>
       <h>100</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=*</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
@@ -188,9 +190,10 @@ szervíz típusa</panel_attributes>
       <x>850</x>
       <y>550</y>
       <w>100</w>
-      <h>30</h>
+      <h>40</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=*</panel_attributes>
     <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
